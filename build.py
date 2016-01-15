@@ -1,28 +1,38 @@
 import os
+import json
 from nbconvert import HTMLExporter
+
+with open('manual.json') as f:
+	config = json.load(f)
 
 html_exporter = HTMLExporter()
 html_exporter.template_file = 'basic'
 
-css = None
-files = sorted(os.listdir('notebooks'))
-for f in files:
-	(body, resources) = html_exporter.from_filename('notebooks/{}'.format(f))
-	print(resources['inlining'].keys())
-	if not css:
-		css = resources['inlining']['css'][0]
+with open('main.tmpl', 'r') as f:
+	template = f.read()
 
-	with open('html/{}'.format(f), 'w') as target:
-		target.write(body)
+files = [chapter.get('name') for chapter in config['chapters']]
+files_slugs = [chapter.get('slug') for chapter in config['chapters']]
 
-links = ['<a class="list-group-item" href="#">{}</a>'.format('.'.join(chapter.split('.')[0:-1])) for chapter in files]
+links = ['<a class="list-group-item" href="{}.html">{}</a>'.format(files_slugs[i], files[i]) for i in range(len(files))]
 
-with open('html/index.tmpl', 'r') as f:
-	print(links)
-	source = f.read().format(
-		css=css,
-		menu='\n'.join(links)
-	)
+for i in range(len(files)):
+	(body, resources) = html_exporter.from_filename('notebooks/{}.ipynb'.format(files[i]))
+
+	with open('manual/{}.html'.format(files_slugs[i]), 'w') as target:
+		source = template % dict(
+			menu='\n'.join(links),
+			content=body
+		)
+		target.write(source)
+
+
+links_index = ['<a class="list-group-item" href="manual/{}.html">{}</a>'.format(files_slugs[i], files[i]) for i in range(len(files))]
+with open('index.tmpl', 'r') as f:
+	template_index = f.read()
 
 with open('index.html', 'w') as f:
+	source = template_index % dict(
+			menu='\n'.join(links_index),
+		)
 	f.write(source)

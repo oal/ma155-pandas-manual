@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Pandas-manual</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+		<link rel="stylesheet" href="../style.css">
+		<meta charset="utf-8">
+	</head>
+
+	<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-3 menu">
+				<h3>
+					MA-155 Manual for Pandas <br>
+					<small>av Olav Andreas Lindekleiv</small>
+				</h3>
+
+				<hr>
+
+				<nav class="list-group">
+					<h4 class="list-group-item">Navigasjon</h4>
+					<a class="list-group-item" href="frekvenstabell-og-diagram.html">Frekvenstabell og -diagram</a>
+				</nav>
+			</div>
+			<section class="col-md-9 content">
+				
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Frekvenstabell">Frekvenstabell<a class="anchor-link" href="#Frekvenstabell">&#182;</a></h2><p>Vi skal nå lære å lage frekvenstabeller med Pandas. Vi måler høyden til noen studenter, og får følgende (i cm, rundet til nærmeste 5):</p>
+
+<pre><code>165, 170, 195, 190, 170, 170, 185, 160, 170, 165, 185, 195, 185, 195, 200, 195, 185, 180, 185, 195</code></pre>
+<p>For å lage en frekvenstabell, lag en ny celle i notebooken (Insert -&gt; Cell below), og sett inn følgende kode:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">Series</span>
+
+<span class="n">hoyder</span> <span class="o">=</span> <span class="n">Series</span><span class="p">([</span>
+        <span class="mi">165</span><span class="p">,</span> <span class="mi">170</span><span class="p">,</span> <span class="mi">195</span><span class="p">,</span> <span class="mi">190</span><span class="p">,</span> <span class="mi">170</span><span class="p">,</span> <span class="mi">170</span><span class="p">,</span> <span class="mi">185</span><span class="p">,</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">170</span><span class="p">,</span> <span class="mi">165</span><span class="p">,</span> <span class="mi">185</span><span class="p">,</span> <span class="mi">195</span><span class="p">,</span> <span class="mi">185</span><span class="p">,</span> <span class="mi">195</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">195</span><span class="p">,</span> <span class="mi">185</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">185</span><span class="p">,</span> <span class="mi">195</span>
+<span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;Målinger&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">hoyder</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+<span class="n">frekvens</span> <span class="o">=</span> <span class="n">hoyder</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
+
+<span class="n">frekvens</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Målinger
+</pre>
+</div>
+</div>
+
+<div class="output_area"><div class="prompt output_prompt">Out[18]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>160    1
+165    2
+170    4
+180    1
+185    5
+190    1
+195    5
+200    1
+Name: Målinger, dtype: int64</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Det som skjer her er at først henter vi inn Series-klassen (1-dimensjonal struktur) fra Pandas. Series, sammen med DataFrame (2D-struktur), er de to datatypene vi kommer til å bruke mest fra Pandas. Series lager man enkelt ved å gi den en liste med data som første parameter, altså mellom parentesene.</p>
+<p>Her lager vi først en liste med de tallene vi målte tidligere, og så legger vi dette inn som en Series. Denne blir lagret i <code>hoyder</code>. Vi gir også dataen vår et navn. Vi kan gjøre mye forskjellig med et Series-objekt, men vi er interessert i å lage en frekvenstabell. Dette kan vi gjøre med metoden <code>value_counts</code>. Denne tar dataen i serien vår, og lager et nytt objekt som teller opp antall forekomster av hver verdi i datamaterialet. For å få høydene i sortert rekkefølge, bruker vi også metoden <code>sort_index()</code>. Prøv gjerne koden uten denne, for å se forskjellen.</p>
+<p>Den siste linjen "frekvens" er en slags returverdi, som forteller iPython at den skal printe/vise oss resultatet i denne variabelen.</p>
+<p>Dette viser det vi er ute etter, men ser ikke så pent ut. Vi skal nå gjøre Series-objektet om til en DataFrame, som ble nevnt tidligere. DataFrame er en utvidelse av funksjonaliteten som finnes i Series. Vi skal her bruke DataFrame for å legge til kolonnenavn på frekvenstabellen vår, og få tegnet den opp på en bedre måte.</p>
+<p>Lag en ny celle, med følgende kode:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">frekvens_frame</span> <span class="o">=</span> <span class="n">frekvens</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
+<span class="n">frekvens_frame</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">&#39;Høyde (cm)&#39;</span>
+
+<span class="n">frekvens_frame</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[19]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Høyde (cm)</th>
+      <th>Målinger</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>160</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>165</th>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>170</th>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>180</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>185</th>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>190</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>195</th>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>200</th>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Det som først skjer her er at vi tar frekvens-variabelen fra forrige celle, og gjør den om til en DataFrame, med <code>to_frame</code>. Dette for å få tilgang til mer funksjonalitet.</p>
+<p>Vi ønsker også å gi navn til verdiene fra våre opprinnelige data. Dette var en måling av studenters høyde, så da gir vi den navnet "Høyde (cm)", ved å sette "name"-verdien til kolonneobjektet. Som du ser over, får vi nå en fin tabell med beskrivende overskrifter.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Plotting-av-frekvenstabell">Plotting av frekvenstabell<a class="anchor-link" href="#Plotting-av-frekvenstabell">&#182;</a></h2><p>Vi skal nå plotte frekvenstabellen vi har laget. Lag igjen en ny celle, og legg inn følgende:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">frekvens_frame</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">&#39;Høyde (cm)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">&#39;Antall&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXYAAAEYCAYAAABIoN1PAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
+AAALEgAACxIB0t1+/AAAGzFJREFUeJzt3X10VfWd7/H3N4CAojwUC1gkQVorCkoiFsf4kIiCVQes
+1CsqPoAd7XWq4zgLOu2qgjNd3jrL3tvqlMUsFS4gFl12upRppOjA4dYnHgo+UK3XjgTUgg8EECoI
+mO/8sU+OJzEPh2Tvc3J++bzWyuJk7529v/xCPvnxO7/92+buiIhIOEoKXYCIiMRLwS4iEhgFu4hI
+YBTsIiKBUbCLiARGwS4iEpjuSV/AzGqB3UA9cNDdv5H0NUVEurLEg50o0KvcfWceriUi0uXlYyjG
+8nQdEREhP4HrwDNmts7M/iYP1xMR6dLyMRRT6e7bzOxYooB/w92fyz7AzLSugYjIYXJ3a2574j12
+d9+W/vND4NdAs2+eunusH7Nnz479nF2xRtWZ20f6X3GOH7NzPC7+nwu1Zzht2ZpEg93MjjSzPunX
+RwETgE1JXlNEpKtLeihmEPDr9FBLd2CJu69I+JoiIl1aosHu7puBMUleoyVVVVWFuOxhKYYaQXXG
+r6rQBeRE7RmffLeltTVWk5cizLwz1CHSXmZGwzhujGdtcyw1VGrPtpkZ3sKbp/mYFSMiRa6srIwt
+W7bk+arNZlbHzmjxnzNppaWl1NbWHtbXqMcuEoPQe5jp3mGhy+iSWmr71nrsuiNURCQwCnYRkcAo
+2EVEAqNgFxEJjIJdRPLu6KOPbvT5woULufXWWzt83i1btjB69OjD+pr9+/dTVVXV4TeHDx48yHnn
+nUd9fX2HzhMHBbuI5F1z0w5bmoq4bdu2Dp+7NfPnz2fKlCkdngrZo0cPLrjgApYuXdqh88RBwS4i
+ncrWrVsZP348Y8aM4YILLuCWW25h7969nHDCCXz22WcA7NmzJ/P573//e8aMGUN5eTm/+MUvMuep
+r69n1qxZjBs3jjFjxvDggw82e70lS5YwefLkzOf33nsvp556KuXl5fzwhz8EoLq6mjvuuIMzzjiD
+U045hfXr1zNlyhS+/vWvc+edd2a+dvLkySxZsiSJZjksukFJRPLuk08+oaKiAohWXNy5cyeTJk0C
+4NZbb2X69OlMmzYts61Pnz5UV1fzm9/8hkmTJrF06VKmTJlCt27dmDFjBnPnzqWyspJZs2ZlrvHw
+ww/Tr18/1qxZw4EDB6isrGTChAmUlpZmjjl48CCbN29m2LBhACxfvpxly5axbt06evbsya5duzLH
+9uzZk3Xr1nH//fczefJkNm7cSL9+/RgxYgR33HEH/fv3Z9SoUaxbty7x9muLeuwikndHHnkkGzZs
+YMOGDWzcuJG77747s+/555/nqquu4p577mHWrFm8+OKLANx4440sWLAAgAULFjBjxgx2797N7t27
+qaysBODaa6/NnGfFihUsWrSI8vJyxo0bR11dHW+99VajOj766CP69euX+fzZZ59l+vTp9OzZE6DR
+voZfMqNHj2bUqFF8+ctf5ogjjmDEiBG88847AJSUlNCzZ0/+8pe/xNZW7aEeu4h0OjU1NRx55JGM
+GzcuM/xy1llnUVtby+rVq6mvr2fkyJHs3r27xXO4Ow888AAXXnhhi8f07t2bffv25VRTQ9g3hHcD
+M+PQoUOZzz/99FN69eqV0zmToh67iORdazNQKisrmTdvHrfffjuLFi3inHPOyey79tprufrqq5kx
+YwYAffv2pV+/frzwwgsAPPLII5ljJ06cyNy5czOh+9Zbb30hxPv160d9fT0HDhwA4MILL2TBggWZ
+43bu3HlYf6+6ujoGDhxIt27dDuvr4qZgF5G8a2kGyv79++nWrRv79u3jtNNOY+nSpdx///2Z/ddc
+cw27du1i6tSpmW3z58/nlltuoaKiotF5v/Od73DyySdTUVHB6NGj+e53v9uoZ91gwoQJPPdc9LTO
+iRMnMmnSJMaOHUtFRQU//elPW6236b5Vq1ZxySWX5NgKydEiYCIx0CJg8dm2bRtDhgxpdt8TTzzB
+smXLWLhwYWzX27hxIz/72c9iOeeUKVO49957+epXvxpDZZH2LAKmMXYR6VRaCvXbbruN5cuXU1NT
+E+v1ysvLqa6uxt07NJf94MGDfOtb34o11NtLPXaRGKjHLknRsr0iIqJgFxEJjYJdRCQwCnYRkcAo
+2EVEAqNgF5EuY9GiRQwZMoTq6mo+/vjjQpeTGAW7iHQZDz30UGaZ35UrV2a2b9myhZKSksxDMi6+
++GIWL15cqDI7TMEuIu0yeHAZZpbYx+DBZTnXUlZWRq9evairq2u0vby8nJKSErZu3QrATTfdxOmn
+n84rr7zC+eef3+jY7JuTampqGq0UWWwU7CLSLu+/v4XopqxkPqLz58bMGD58OL/85S8z2zZt2sS+
+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
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Den første linjen (som starter med %) gir beskjed til matplotlib, den pakken som er ansvarlig for å tegne grafene, om at vi vil ha alle figurer "inline", eller rett i dokumentet. Hvis man ikke har dette med, får man opp alle figurer i nytt vindu. Det kan være nyttig hvis du skal bearbeide og lagre figurene til bruk i andre applikasjoner, men ofte er det mest oversiktlig å se resultatet direkte i notebooken.</p>
+<p>Deretter importerer vi pyplot-modulen, men for å spare litt skriving, gir vi den et "kallenavn", "plt". Det er denne som er ansvarlig for selve tegningen av grafene vi lager.</p>
+<p>Vi henter så frem "plot"-funksjonaliteten i DataFrame, og sier at vi vil ha et "Bar chart". Det finnes mange ulike plottere. Se under "kind", <a href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.plot.html">her</a>, for mer informasjon.</p>
+<p>Til slutt sier vi til matplotlib at vi ønsker å se resultatet, med "plt.show()".</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Kumulativ-frekvenstabell-og-diagram">Kumulativ frekvenstabell og diagram<a class="anchor-link" href="#Kumulativ-frekvenstabell-og-diagram">&#182;</a></h2><p>For å lage en kumulativ frekvenstabell, trenger vi kun å ta <code>frekvens_frame</code>, og kjøre cumsum på denne. Dette gjør vi ved å legge på <code>.cumsum()</code>, som vist under.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">kumulativ_frekvens_frame</span> <span class="o">=</span> <span class="n">frekvens_frame</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span>
+<span class="n">kumulativ_frekvens_frame</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[21]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Høyde (cm)</th>
+      <th>Målinger</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>160</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>165</th>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>170</th>
+      <td>7</td>
+    </tr>
+    <tr>
+      <th>180</th>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>185</th>
+      <td>13</td>
+    </tr>
+    <tr>
+      <th>190</th>
+      <td>14</td>
+    </tr>
+    <tr>
+      <th>195</th>
+      <td>19</td>
+    </tr>
+    <tr>
+      <th>200</th>
+      <td>20</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Så flott! Nå kan vi plotte denne nye tabellen, slik som tidligere. Bare husk å bytte ut <code>frekvens_frame</code> med <code>kumulativ_frekvens_frame</code>, siden det var det vi kalte den nye tabellen:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[22]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">kumulativ_frekvens_frame</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">&#39;Høyde (cm)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">&#39;Kumulativt antall&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXwAAAEYCAYAAABfgk2GAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
+AAALEgAACxIB0t1+/AAAHm9JREFUeJzt3XuQFeWd//H3d1DxgnLxNmSVGTQXiaLMBMXNRB1E0UQD
+RDYRFUXQmKyrJuuWGFNRMJtyY8qkom4otyJQiBjiz/x2gYiILg6/eAfBC4lxycrFGMSEAQIKgs73
+90f3HM9M5tLMdJ+ePv15VZ3inO4zT3+mge/p8/TTT5u7IyIi5a8i7QAiIlIaKvgiIjmhgi8ikhMq
++CIiOaGCLyKSEyr4IiI5kWjBN7NjzGyZmf3WzF4zsxvC5f3NbKmZvWFmj5tZ3yRziIgIWJLj8M2s
+Eqh095fNrA/wEjAWmAxscfcfmdnNQH93/05iQUREJNkjfHd/x91fDp/vBF4HjiEo+nPCt80BxiWZ
+Q0REEj7Cb7Ehs2qgATgJeMvd+xeta3T3ASUJIiKSU/uVYiNhd84jwLfcfaeZtf6UafNTp433iYhI
+BO5urZclPkrHzPYjKPZz3X1BuHizmR0drq8E3m3v59091se0adNibzOJh3LmK6NyllfOsHpFfEyL
++L7o9bA9pRiWOQv4nbvfXbRsIXBl+HwSsKD1D4mISLwS7dIxszrgMuA1M1tN8DH1XeBO4GEzmwJs
+AL6WZA4REUm44Lv7M0Cvdlafk+S221NfX5/GZveZcsYnCxlBOeOWlZxQX7ItlWyUTleYmffkfCIi
+bTEz2hmL0p1WO+yfb719b+OkbUlG6cSturqaDRs2pB0jl6qqqli/fn3aMUSkCzJ5hB9+eqWQSLTv
+RTrXU4/wNXmaiEhOqOCLiOSECr6ISE6o4IuI5IQKPnDooYe2eD1nzhyuv/76bre7YcMGhg4duk8/
+s3v3burr67t9YnTv3r2cddZZNDU1dasdkZ6msrIaM4vtUVlZnfavVDIq+DSfUe98GcCmTZu63XZH
+Zs2axfjx4/f551rbf//9Oeecc5g/f3632hHpaTZv3kD0eWo6fwTt5YMKfic2btzIqFGjGDZsGOec
+cw7XXnstO3fu5LjjjuOjjz4CYMeOHYXXL730EsOGDaOmpoaf/exnhXaampqYOnUqI0aMYNiwYfz8
+5z9vc3vz5s1j7Nixhdd33nknJ598MjU1NXz3u98FYOTIkdx4442ceuqpnHjiiaxcuZLx48fzmc98
+hltvvbXws2PHjmXevHlJ7BYRyaBMXngVt/fff5/a2logmI1u69atjBkzBoDrr7+eyZMnM3HixMKy
+Pn36MHLkSB599FHGjBnD/PnzGT9+PL169WLKlCnMmDGDuro6pk6dWtjGzJkz6devHy+88AJ79uyh
+rq6O0aNHU1VVVXjP3r17WbduHYMGDQJgyZIlLFq0iBUrVtC7d2+2bdtWeG/v3r1ZsWIF99xzD2PH
+jmX16tX069eP448/nhtvvJH+/ftz0kknsWLFisT3n4hkg47wgYMPPphVq1axatUqVq9eze23315Y
+98wzz3DJJZdwxx13MHXqVJ577jkArrrqKmbPng3A7NmzmTJlCtu3b2f79u3U1dUBcPnllxfaWbp0
+KQ888AA1NTWMGDGCxsZG1q5d2yLHX/7yF/r161d4/eSTTzJ58mR69+4N0GJd84fP0KFDOemkkzjq
+qKM44IADOP7443nrrbcAqKiooHfv3rz33nux7SsRyS4d4UewePFiDj74YEaMGFHoxvn85z/P+vXr
+Wb58OU1NTQwZMoTt27e324a7c++993Luuee2+56DDjqIXbt2RcrU/CHQXNSbmRkffvhh4fUHH3zA
+gQceGKlNESlvOsKHDkfE1NXVcd999/Htb3+bBx54gDPOOKOw7vLLL+fSSy9lypQpAPTt25d+/frx
+7LPPAvDggw8W3nveeecxY8aMQjFeu3bt3xT3fv360dTUxJ49ewA499xzmT17duF9W7du3affq7Gx
+kSOOOIJevdqbsFRE8kQFn/ZH0uzevZtevXqxa9cuTjnlFObPn88999xTWH/ZZZexbds2JkyYUFg2
+a9Ysrr32Wmpra1u0e/XVV/PZz36W2tpahg4dyje/+c0WR+LNRo8ezdNPPw0EHxJjxoxh+PDh1NbW
+8uMf/7jDvK3XPfXUU1xwwQUR94KIlDtNntaJTZs2MXDgwDbXPfLIIyxatIg5c+bEtr3Vq1fz05/+
+NJY2x48fz5133sknP/nJGJIFNHmapC3+icni/zfdUydPUx9+J9or9jfccANLlixh8eLFsW6vpqaG
+kSNH4u7dGou/d+9evvKVr8Ra7EUk23SEL/tE+17SpiP8aNvX9MgiIjmmgi8ikhMq+CIiOaGCLyKS
+Eyr4IiI5oYKfkgceeICBAwcycuRI/vrXv6YdR0RyQAU/Jffff39hKuVly5YVlm/YsIGKiorCjUu+
+9KUvMXfu3LRiikgZKZuCH/ddcLp6V5zq6moOPPBAGhsbWyyvqamhoqKCjRs3AnDNNdfwuc99jlde
+eYWzzz67xXuLL7havHhxi1k3RUS6qmwKftx3wenqXXHMjMGDB/OLX/yisGzNmjXs2rWrRSGfOHEi
+mzZtYtmyZRx22GFd/8UToourRMpP2RT8nuTyyy9vMRfOnDlzmDRpUuH14sWLqa2tpW/fvgwaNKjF
+/PutjRw5klmzZhXaOeOMM7jpppsYMGAAxx9/PEuWLCm8d/369Zx11ln07duX0aNHc91117X4dvD8
+889TV1dH//79qampYfny5S22873vfY8vfOELHHLIIaxbty6WfSEiPYcKfgJOP/10duzYwRtvvEFT
+UxO//OUvmThxYuGouU+fPsydO5ft27ezePFi7rvvPhYuXBip7RdffJEhQ4awZcsWbrrpJq666qrC
+uksvvZTTTz+dLVu2MG3aNObOnVv4VvH2229z4YUXctttt7F161buuusuxo8fz5YtWwo//+CDD3L/
+/fezY8eOFnfiEpHyoIKfkOaj/CeeeIIhQ4bwiU98orDuzDPP5MQTTwTgpJNOYsKECS2OtjtSVVXF
+lClTMDMmTZrEpk2bePfdd3nrrbdYuXIlt99+O/vttx91dXWFu2JBcK/cCy64gPPOOw+AUaNGMXz4
+8BaTv1155ZWccMIJVFRUaA59kTKk2TITMnHiRM4880zWrVvHFVdc0WLdCy+8wC233MKaNWvYs2cP
+e/bs4atf/WqkdisrKwvPDzroIAB27tzJn//8ZwYMGNDi7lbHHnssf/zjH4Fg9M/DDz/MokWLgKCP
+/sMPP2TUqFEt3i8i5UtH+AkZNGgQgwcP5rHHHuOiiy4CPh59c9lllzFu3Djefvtttm3bxje+8Y1u
+nyQdOHAgjY2N7N69u7Cs+d62EBTzK664gsbGRhobG9m6dSs7duzgpptuKrynO9Mxi0jPp4KfoFmz
+ZrFs2bLCkXhzUd+5cyf9+/dn//3358UXX+Shhx5q8XNdKf6DBg1i+PDhTJ8+nb179/Lcc88VjuYh
++MaxaNEili5dSlNTE7t372b58uX86U9/6sZvKCJZUjYF/+ijqwBL7BG037nio+TBgwdTW1v7N+tm
+zJjBrbfeSt++ffnBD37AxRdf3G4bnR11F6+fN28ezz77LEcccQS33XYbEyZMKNzg/JhjjmHBggXc
+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
+uP6m0oPzDgAAAABJRU5ErkJggg==
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+			</section>
+		</div>
+	</div>
+	</body>
+</html>

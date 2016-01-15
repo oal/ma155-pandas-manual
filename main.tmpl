@@ -3,25 +3,30 @@
 	<head>
 		<title>Pandas-manual</title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-		<link rel="stylesheet" href="style.css">
+		<link rel="stylesheet" href="../style.css">
+		<meta charset="utf-8">
 	</head>
 
 	<body>
 	<div class="container-fluid">
 		<div class="row">
-			<nav class="col-md-3 menu">
-				<div class="list-group">
-					{menu}
-				</div>
-			</nav>
+			<div class="col-md-3 menu">
+				<h3>
+					MA-155 Manual for Pandas <br>
+					<small>av Olav Andreas Lindekleiv</small>
+				</h3>
+
+				<hr>
+
+				<nav class="list-group">
+					<h4 class="list-group-item">Navigasjon</h4>
+					%(menu)s
+				</nav>
+			</div>
 			<section class="col-md-9 content">
-				Klikk i menyen.
+				%(content)s
 			</section>
 		</div>
 	</div>
-		
-
-		<script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
-		<script src="main.js"></script>
 	</body>
 </html>
