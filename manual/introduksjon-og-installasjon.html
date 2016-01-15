@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Pandas-manual</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+		<link rel="stylesheet" href="../style.css">
+		<meta charset="utf-8">
+	</head>
+
+	<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-3 menu">
+				<h3>
+					MA-155 Manual for Pandas <br>
+					<small>av Olav Andreas Lindekleiv</small>
+				</h3>
+
+				<hr>
+
+				<nav class="list-group">
+					<h4 class="list-group-item">Navigasjon</h4>
+					<a class="list-group-item" href="introduksjon-og-installasjon.html">Introduksjon og installasjon</a>
+<a class="list-group-item" href="frekvenstabell-og-diagram.html">Frekvenstabell og -diagram</a>
+				</nav>
+			</div>
+			<section class="col-md-9 content">
+				
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Introduksjon">Introduksjon<a class="anchor-link" href="#Introduksjon">&#182;</a></h2><p>Denne manualen er en introduksjon til Pandas og iPython/Jupyter, beregnet for statistikkdelen av MA-155 ved Universitetet i Agder. Den tar for seg installasjon og oppsett av nødvendige verktøy, samt bruk av disse for å løse relevante oppgaver og problemer i faget.</p>
+<p>Vi bruker Python med tilhørende verktøy. Programmeringsspråket Python er mye brukt innenfor forskning og dataanalyse, og det er utviklet en rekke programpakker og verktøy innenfor ulike felt. Vi skal bruke en samling kalt Anaconda, som inneholder alt som trengs for å følge denne manualen, og er enkel å installere.</p>
+<p>De kodebibliotekene vi kommer til å bruke mest er Pandas og Matplotlib. Pandas er en pakke for databehandling og matematikk, mens Matplotlib brukes til å tegne grafer. All skriving og kjøring av kode gjøres med Jupyter. Man kan også skrive kode i en vanlig teksteditor, men notebooks i Jupyter gjør at man i mye større grad får en interaktiv prosess, ved at kode og data kjøres og presenteres direkte i nettleseren.</p>
+<h2 id="Installasjon">Installasjon<a class="anchor-link" href="#Installasjon">&#182;</a></h2><p>Alt du trenger for å komme igang er å <a href="https://www.continuum.io/downloads">laste ned Anaconda</a>. Dette er en samling med en rekke pakker til bruk innenfor matematikk/forskning/dataanalyse o.l. Vi kommer bare til å bruke et fåtall av disse, men her er det bare å dykke dypere, hvis guiden inspirerer til det!</p>
+<p>Anaconda er tilgjengelig til Windows, Mac OSX og Linux, og installeres som et hvilket som helst annet program på maskinen. Den kommer i en Python 2.7, og 3.x-versjon. Det har tidligere vært et problem med kompatibilitet for noen pakker med 3.x-versjonen, men for alt vi skal gjøre, er den et godt valg. Den er også mest fremtidsrettet. Følg instruksjonene, så skal det gå av seg selv.</p>
+<p><strong>Utvidet beskrivelse av installasjon kommer.</strong></p>
+<h2 id="Test-at-det-virker">Test at det virker<a class="anchor-link" href="#Test-at-det-virker">&#182;</a></h2><p>Når installasjonen er ferdig, gå til startmenyen, og finn programmet "Jupyter Notebook". Du skal få opp et nettleservindu med en filbehandler. Lag en egen mappe til filene dine, hvis du ønsker det. Trykk så på "New", og "Python 3" for å lage en notebook.</p>
+<p>Skriv så inn koden under, ved siden av <code>In []</code> i notebooken din, og trykk CTRL + Enter for å kjøre koden. Alternativt kan du trykke på avspillingsikonet i verktøylinjen på toppen.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="o">%</span><span class="k">matplotlib</span> inline
+
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">Series</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">Series</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random_sample</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">data</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Hvis du får en enkel graf, noe tilsvarende denne, har installasjonen gått bra, og du er klar til å fortsette.</p>
+
+</div>
+</div>
+</div>
+			</section>
+		</div>
+	</div>
+	</body>
+</html>

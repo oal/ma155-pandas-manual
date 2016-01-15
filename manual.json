@@ -1,5 +1,6 @@
 {
 	"chapters": [
+		{"name": "Introduksjon og installasjon", "slug": "introduksjon-og-installasjon"},
 		{"name": "Frekvenstabell og -diagram", "slug": "frekvenstabell-og-diagram"}
 	]
 }
