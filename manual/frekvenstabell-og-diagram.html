@@ -42,14 +42,15 @@
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">Series</span>
 
-<span class="n">hoyder</span> <span class="o">=</span> <span class="n">Series</span><span class="p">([</span>
-        <span class="mi">165</span><span class="p">,</span> <span class="mi">170</span><span class="p">,</span> <span class="mi">195</span><span class="p">,</span> <span class="mi">190</span><span class="p">,</span> <span class="mi">170</span><span class="p">,</span> <span class="mi">170</span><span class="p">,</span> <span class="mi">185</span><span class="p">,</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">170</span><span class="p">,</span> <span class="mi">165</span><span class="p">,</span> <span class="mi">185</span><span class="p">,</span> <span class="mi">195</span><span class="p">,</span> <span class="mi">185</span><span class="p">,</span> <span class="mi">195</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">195</span><span class="p">,</span> <span class="mi">185</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">185</span><span class="p">,</span> <span class="mi">195</span>
-<span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;Målinger&#39;</span><span class="p">)</span>
+<span class="n">hoyder</span> <span class="o">=</span> <span class="n">Series</span><span class="p">(</span>
+    <span class="p">[</span><span class="mi">165</span><span class="p">,</span> <span class="mi">170</span><span class="p">,</span> <span class="mi">195</span><span class="p">,</span> <span class="mi">190</span><span class="p">,</span> <span class="mi">170</span><span class="p">,</span> <span class="mi">170</span><span class="p">,</span> <span class="mi">185</span><span class="p">,</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">170</span><span class="p">,</span> <span class="mi">165</span><span class="p">,</span> <span class="mi">185</span><span class="p">,</span> <span class="mi">195</span><span class="p">,</span> <span class="mi">185</span><span class="p">,</span> <span class="mi">195</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">195</span><span class="p">,</span> <span class="mi">185</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">185</span><span class="p">,</span> <span class="mi">195</span><span class="p">],</span>
+    <span class="n">name</span><span class="o">=</span><span class="s">&#39;Målinger&#39;</span>
+<span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">hoyder</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 <span class="n">frekvens</span> <span class="o">=</span> <span class="n">hoyder</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
 
@@ -71,7 +72,7 @@
 </div>
 </div>
 
-<div class="output_area"><div class="prompt output_prompt">Out[18]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[1]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -108,7 +109,7 @@ Name: Målinger, dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span class="n">frekvens_frame</span> <span class="o">=</span> <span class="n">frekvens</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
@@ -125,7 +126,7 @@ Name: Målinger, dtype: int64</pre>
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[19]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[2]:</div>
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 <div>
@@ -203,7 +204,7 @@ Name: Målinger, dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[20]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span class="o">%</span><span class="k">matplotlib</span> inline
@@ -381,6 +382,198 @@ MAp2EZHAKNhFRAKjYBcRCYyCXUQkMP8N6RVP4/1xkloAAAAASUVORK5CYII=
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Gjennomsnitt-og-median">Gjennomsnitt og median<a class="anchor-link" href="#Gjennomsnitt-og-median">&#182;</a></h2><p>Med Pandas kan vi veldig enkelt regne ut bl.a. gjennomsnitt, median og standardavvik. Vi må passe på at vi gjør disse operasjonene på riktig objekt. Hvis vi forsøker å regne gjennomsnitt på "frekvens" eller "frekvens_frame" som vi brukte til plotting, får vi gjennomsnittlig frekvens. Vil ønsker gjennomsnittlig høyde, så da må vi operere på "hoyder"-variabelen. Vi bruker "mean"-metoden og "median"-metoden for å finne hhv. gjennomsnitt og median.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">gjsnitt</span> <span class="o">=</span> <span class="n">hoyder</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">median</span> <span class="o">=</span> <span class="n">hoyder</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
+
+<span class="c"># Bruker print til å vise verdiene. Print kan motta flere parametere, og vil sette inn mellomrom mellom disse:</span>
+<span class="nb">print</span><span class="p">(</span><span class="s">&#39;Gjennomsnitt:&#39;</span><span class="p">,</span> <span class="n">gjsnitt</span><span class="p">,</span> <span class="s">&#39;cm&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s">&#39;Median:&#39;</span><span class="p">,</span> <span class="n">median</span><span class="p">,</span> <span class="s">&#39;cm&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Gjennomsnitt: 182.0 cm
+Median: 185.0 cm
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Vise-median-og-gjennomsnitt-p&#229;-diagram">Vise median og gjennomsnitt p&#229; diagram<a class="anchor-link" href="#Vise-median-og-gjennomsnitt-p&#229;-diagram">&#182;</a></h3><p>Nå som vi har regnet ut median og gjennomsnitt, kan vi legge dette på diagrammet vårt. Vi kan dessverre ikke bruke Pandas plot-objekt direkte lenger. Dette skyldes at Pandas, bak fasaden, bruker 0, 1, 2, ... som indekser på aksene, og bare endrer tekstverdiene på det endelige diagrammet. Hvis vi prøvde å legge til en vertikal linje i x=180 ville den kommet langt utenfor figuren.</p>
+<p>Pandas sin innebygde rutine fungerer med andre ord bra for enkle figurer, men det hender at man må bruke den underliggende matplotlib-pakken hvis man ønsker mer kontroll. Legg merke til at vi bruker "bar"-metoden fra "plt"-pakken, og ikke "plot.bar" på "frekvens_frame" som tidligere.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># Sett opp aksebeskrivelse for den nye figuren</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">&#39;Høyde (cm)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">&#39;Antall&#39;</span><span class="p">)</span>
+
+<span class="n">xs</span> <span class="o">=</span> <span class="n">frekvens_frame</span><span class="o">.</span><span class="n">index</span> <span class="c"># X-verdiene fra pandas DataFrame</span>
+<span class="n">ys</span> <span class="o">=</span> <span class="n">frekvens_frame</span><span class="p">[</span><span class="s">&#39;Målinger&#39;</span><span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">align</span><span class="o">=</span><span class="s">&#39;center&#39;</span><span class="p">)</span> <span class="c"># Bruker matplotlib/plt direkte, ved å bruke x- og y-verdiene over</span>
+
+<span class="c"># Tegne en bred, grønn linje for gjennomsnitt, og rød for median</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">gjsnitt</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">&#39;g&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">median</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">&#39;r&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="c"># Beskrivelse</span>
+<span class="nb">print</span><span class="p">(</span><span class="s">&#39;Gjennomsnitt: Grønn linje&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s">&#39;Median: Rød linje&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Gjennomsnitt: Grønn linje
+Median: Rød linje
+</pre>
+</div>
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Kumulativ-frekvenstabell-og-diagram">Kumulativ frekvenstabell og diagram<a class="anchor-link" href="#Kumulativ-frekvenstabell-og-diagram">&#182;</a></h2><p>For å lage en kumulativ frekvenstabell, trenger vi kun å ta <code>frekvens_frame</code>, og kjøre cumsum på denne. Dette gjør vi ved å legge på <code>.cumsum()</code>, som vist under.</p>
 
 </div>
@@ -388,7 +581,7 @@ MAp2EZHAKNhFRAKjYBcRCYyCXUQkMP8N6RVP4/1xkloAAAAASUVORK5CYII=
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[21]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span class="n">kumulativ_frekvens_frame</span> <span class="o">=</span> <span class="n">frekvens_frame</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span>
@@ -403,7 +596,7 @@ MAp2EZHAKNhFRAKjYBcRCYyCXUQkMP8N6RVP4/1xkloAAAAASUVORK5CYII=
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[21]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[6]:</div>
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 <div>
@@ -470,7 +663,7 @@ MAp2EZHAKNhFRAKjYBcRCYyCXUQkMP8N6RVP4/1xkloAAAAASUVORK5CYII=
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[22]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span class="n">kumulativ_frekvens_frame</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">()</span>
