@@ -19,12 +19,13 @@ links = ['<a class="list-group-item" href="{}.html">{}</a>'.format(files_slugs[i
 for i in range(len(files)):
 	(body, resources) = html_exporter.from_filename('notebooks/{}.ipynb'.format(files[i]))
 
-	with open('manual/{}.html'.format(files_slugs[i]), 'w') as target:
+	with open('manual/{}.html'.format(files_slugs[i]), 'wb') as target:
+		#print(body[1430-5:1430+5].encode('utf-8'))
 		source = template % dict(
 			menu='\n'.join(links),
 			content=body
 		)
-		target.write(source)
+		target.write(source.encode('utf-8'))
 
 
 links_index = ['<a class="list-group-item" href="manual/{}.html">{}</a>'.format(files_slugs[i], files[i]) for i in range(len(files))]

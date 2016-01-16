@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Pandas-manual</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+		<link rel="stylesheet" href="../style.css">
+		<meta charset="utf-8">
+	</head>
+
+	<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-3 menu">
+				<h3>
+					MA-155 Manual for Pandas <br>
+					<small>av Olav Andreas Lindekleiv</small>
+				</h3>
+
+				<hr>
+
+				<nav class="list-group">
+					<h4 class="list-group-item">Navigasjon</h4>
+					<a class="list-group-item" href="introduksjon-og-installasjon.html">Introduksjon og installasjon</a>
+<a class="list-group-item" href="python.html">Introduksjon til Python</a>
+<a class="list-group-item" href="frekvenstabell-og-diagram.html">Frekvenstabell og -diagram</a>
+				</nav>
+			</div>
+			<section class="col-md-9 content">
+				
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Python">Python<a class="anchor-link" href="#Python">&#182;</a></h2><p>Det kan være en fordel å være litt kjent med Python, eller i hvert fall et annet programmeringsspråk, for å følge denne manualen. Det vil likevel bli gitt noen forklaringer på syntaks o.l. under veis. La oss ta litt grunnleggende Python først.</p>
+<h3 id="Variabler">Variabler<a class="anchor-link" href="#Variabler">&#182;</a></h3><p>Python er et dynamisk språk, så man trenger ikke slavisk å definere og følge variabeltyper slik som i f.eks. Java. Du angir et navn (kan inneholde A-z, 0-9 og _, og må begynne med en bokstav), så et likhetstegn, og til slutt en verdi. Du kan gjøre ulike operasjoner på variabler, som å plusse og gange dem sammen.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">min_variabel</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">min_andre_variabel</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">mitt_svar</span> <span class="o">=</span> <span class="n">min_variabel</span> <span class="o">*</span> <span class="n">min_andre_variabel</span>
+
+<span class="n">mitt_svar</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[1]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>20</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Her lager vi tre variabler. De to første linjene definerer variabler med tall. Den tredje linjen ganger samme verdiene i disse, og lagrer dette i mitt_svar. Den siste linjen i en kodeblokk/celle i Jupyter er cellens returverdi. Det  betyr at det er dette som vises ved siden av "Out []:". Dette kan være variabelverdier, som her, men vi kan også få vist grafer, som vi skal se på senere.</p>
+<p>Man kan også lage variabler med tekst: <code>min_tekst = 'Hei, verden'</code>. Tekst må plasseres mellom enten enkle eller doble hermetegn (<code>'</code> eller <code>"</code>).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Lister">Lister<a class="anchor-link" href="#Lister">&#182;</a></h3><p>Variabler kan også være lister. Lister kan inneholde flere verdier, av tall, tekst osv. Vi lagrer ofte datamaterialet vårt i lister. Lister lages slik:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">min_liste</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="n">min_andre_liste</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;Liste&#39;</span><span class="p">,</span> <span class="s">&#39;med&#39;</span><span class="p">,</span> <span class="s">&#39;flere&#39;</span><span class="p">,</span> <span class="s">&#39;ord&#39;</span><span class="p">]</span>
+
+<span class="n">min_liste</span> <span class="o">+</span> <span class="n">min_andre_liste</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[2]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[1, 2, 3, &apos;Liste&apos;, &apos;med&apos;, &apos;flere&apos;, &apos;ord&apos;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Dict">Dict<a class="anchor-link" href="#Dict">&#182;</a></h3><p>Dicts, eller dictionaries (også kjent som associative array eller map i andre språk), lar deg koble sammen verdier, omtrent som navn og telefonnummer i en telefonkatalog. Det er lettere å forklare med et eksempel:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">min_dict</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">&#39;navn&#39;</span><span class="p">:</span> <span class="s">&#39;Hans&#39;</span><span class="p">,</span>
+    <span class="s">&#39;alder&#39;</span><span class="p">:</span> <span class="mi">15</span>
+<span class="p">}</span>
+
+<span class="n">min_dict</span><span class="p">[</span><span class="s">&#39;navn&#39;</span><span class="p">],</span> <span class="n">min_dict</span><span class="p">[</span><span class="s">&#39;alder&#39;</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[3]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(&apos;Hans&apos;, 15)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Her kobler vi Hans til "nøkkelen" <strong>navn</strong>, og 15 til <strong>alder</strong>. Disse kan vi hente ut og bruke til andre ting senere.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Kommentarer">Kommentarer<a class="anchor-link" href="#Kommentarer">&#182;</a></h3><p>Kommentarer er linjer som ikke leses av datamaskinen, men som kun er der for å hjelpe programmereren. I Python skrives kommentarer ved å sette inn en #. All tekst som følger på den linjen leses som kommentar.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">min_variabel</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="mi">5</span> <span class="c"># min_variabel vil få verdien 10.</span>
+
+<span class="n">min_variabel</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[4]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>10</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Importering-av-eksisterende-kode">Importering av eksisterende kode<a class="anchor-link" href="#Importering-av-eksisterende-kode">&#182;</a></h3><p>I Python er det enkelt å importere kode fra andre filer og pakker, slik at man kan bruke funksjoner derfra i sin egen kode. Vi så noen eksempler på dette i testkoden vi kjørte etter installasjonen:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">Series</span> <span class="c"># Henter klassen Series fra pandas-pakken</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span> <span class="c"># Henter hele pyplot i matplotlib.</span>
+<span class="c"># Vi henter den som &quot;plt&quot; slik at vi slipper å skrive hele pakkens</span>
+<span class="c"># navn hver gang vi bruker den.</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span> <span class="c"># Henter hele numpy-pakken</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Funksjoner">Funksjoner<a class="anchor-link" href="#Funksjoner">&#182;</a></h3><p>Funksjoner er ferdige rutiner som du eller noen andre har laget. De likner på funksjonene vi har fra matematikken. De har et navn, og tar gjerne inn noen parametere som påvirker deres resultat.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">sin</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="mf">0.5</span><span class="p">))</span> <span class="c"># Kjører først sinus til 0.5, og så tas det resultatet, og </span>
+<span class="c"># vises/printes på skjermen. print kan vi bruke hvis vi vil vise en verdi</span>
+<span class="c"># utenom returverdien som kommer til slutt i en celle.</span>
+
+<span class="c"># &quot;def&quot; definerer en funksjon. Her lager vi en funksjon &quot;ganger_to&quot; som</span>
+<span class="c"># tar inn en parameter, og returnerer seg selv ganger to.</span>
+<span class="k">def</span> <span class="nf">ganger_tre</span><span class="p">(</span><span class="n">mitt_tall</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">mitt_tall</span><span class="o">*</span><span class="mi">3</span> <span class="c"># Viktig at denne linjen ikke ligger helt inne i </span>
+    <span class="c"># margen, siden den skal være inni funksjonen vår. Python bruker</span>
+    <span class="c"># innrykk for å definere kodeblokker som henger sammen.</span>
+
+<span class="n">svar</span> <span class="o">=</span> <span class="n">ganger_tre</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="c"># svar inneholder 6</span>
+
+<span class="n">svar</span> <span class="c"># Skriver 6 til skjermen</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>0.479425538604203
+</pre>
+</div>
+</div>
+
+<div class="output_area"><div class="prompt output_prompt">Out[6]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>6</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Mer-informasjon">Mer informasjon<a class="anchor-link" href="#Mer-informasjon">&#182;</a></h3><p>Ny syntaks og nye funksjoner vil bli forklart underveis. Det kan likevel hende du trenger å slå opp noe. I tillegg til å søke på Google, kan disse kildene være nyttige:</p>
+<ul>
+<li><a href="https://docs.python.org/3/">Offisiell Python-dokumentasjon</a></li>
+<li><a href="https://www.codecademy.com/learn/python">Codecademy sitt Python-kurs</a></li>
+<li><a href="https://learnxinyminutes.com/docs/python3/">Learn X in Y minutes</a>: Hurtig-intro til Python. Anbefales hvis du har erfaring med andre programmeringsspråk.</li>
+</ul>
+
+</div>
+</div>
+</div>
+			</section>
+		</div>
+	</div>
+	</body>
+</html>
