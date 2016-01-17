@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Pandas-manual</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+		<link rel="stylesheet" href="../style.css">
+		<meta charset="utf-8">
+	</head>
+
+	<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-3 menu">
+				<h3>
+					MA-155 Manual for Pandas
+				</h3>
+
+				<hr>
+
+				<nav class="list-group">
+					<h4 class="list-group-item">Navigasjon</h4>
+					<a class="list-group-item" href="introduksjon-og-installasjon.html">Introduksjon og installasjon</a>
+<a class="list-group-item" href="python.html">Introduksjon til Python</a>
+<a class="list-group-item" href="frekvenstabell-og-diagram.html">Frekvenstabell og -diagram</a>
+<a class="list-group-item" href="kovarians-og-korrelasjon.html">Kovarians og korrelasjon</a>
+				</nav>
+			</div>
+			<section class="col-md-9 content">
+				
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Kovarians-og-korrelasjon">Kovarians og korrelasjon<a class="anchor-link" href="#Kovarians-og-korrelasjon">&#182;</a></h3><p>Det å finne kovarians og korrelasjon er veldig enkelt med Pandas. Vi trenger både Series og DataFrame. X-verdier og Y-verdier lagrer vi i hver sin serie, og så kobler vi dem sammen til en DataFrame.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">Series</span><span class="p">,</span> <span class="n">DataFrame</span>
+
+<span class="n">xs</span> <span class="o">=</span> <span class="n">Series</span><span class="p">([</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;X-verdier&#39;</span><span class="p">)</span>
+<span class="n">ys</span> <span class="o">=</span> <span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;Y-verdier&#39;</span><span class="p">)</span>
+
+<span class="c"># Bruker .T for å transponere / snu DataFramen slik at vi får X-er og Y-er nedover, istedenfor bortover.</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="p">([</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+
+<span class="n">df</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[1]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>X-verdier</th>
+      <th>Y-verdier</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>-4</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+      <td>8</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Vi lager to serier. Dette gjør vi ved å sende inn to lister med tall, og så gir vi begge seriene passende navn, med "name"-parameteren. Vi kan finne kovarians og korrelasjon bare med to enkle serier, men det kan være fint å se dataen i en tabell før vi går videre. Dessuten trenger vi en DataFrame for å lage et diagram.</p>
+<p>Som i frekvenstabell-kapittelet, lager vi en DataFrame av seriene våre. Jupyter viser automatisk DataFrames på tabellform, slik at vi får ut tabellen over.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Plotting-av-verdier">Plotting av verdier<a class="anchor-link" href="#Plotting-av-verdier">&#182;</a></h3><p>Pandas har innebygget støtte for såkalte "scatter plots", hvor datapunkter markeres med sirkler. Vi setter, som tidligere, matplotlib i "inline"-modus, slik at vi får figurene rett på skjermen, og så plotter vi direkte.</p>
+<p>Vi bruker DataFramen sitt "plot"-objekt, og kaller "scatter"-metoden her. Scatter plot krever at vi angir tekst på X- og Y-aksen, så dette spesifiserer vi med hhv. x- og y-parameterne. Det er alt! En liten linje, så har vi et flott diagram.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="o">%</span><span class="k">matplotlib</span> inline
+
+<span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s">&#39;X-verdier&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s">&#39;Y-verdier&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[2]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;matplotlib.axes._subplots.AxesSubplot at 0x1070595f8&gt;</pre>
+</div>
+
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+TkSuQmCC
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Finne-kovarians-og-korrelasjon-mellom-x-og-y">Finne kovarians og korrelasjon mellom x og y<a class="anchor-link" href="#Finne-kovarians-og-korrelasjon-mellom-x-og-y">&#182;</a></h3><p>Nå som vi har fått et visuelt inntrykk av verdiene våre, ser vi at de ligger nokså fint, stigende oppover mot høyre. La oss se hva Pandas sier. For å regne kovariansen mellom to serier, tar vi den første serien, og bruker metoden "cov" på denne. Den tar en parameter, og det er den andre serien. Resultatet er at vi får kovariansen mellom disse to.</p>
+<p>Korrelasjon (corr) fungerer på samme måte:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="nb">print</span><span class="p">(</span><span class="s">&#39;Kovarians mellom x og y:&#39;</span><span class="p">,</span> <span class="n">xs</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="n">ys</span><span class="p">))</span> <span class="c"># Kovarians mellom xs-serien og ys-serien</span>
+<span class="nb">print</span><span class="p">(</span><span class="s">&#39;Korrelasjon mellom x og y:&#39;</span><span class="p">,</span> <span class="n">xs</span><span class="o">.</span><span class="n">corr</span><span class="p">(</span><span class="n">ys</span><span class="p">))</span> <span class="c"># Tilsvarende for korrelasjon</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Kovarians mellom x og y: 11.25
+Korrelasjon mellom x og y: 0.947397581168
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+			</section>
+		</div>
+
+		<div class="row">
+			<div class="col-sm-12">
+					<hr>
+					<p class="text-center">
+						<small>Laget v&aring;ren 2016, som prosjektoppgave i MA-155 Statistikk ved UiA av Olav Andreas Lindekleiv</small>
+					</p>
+					<hr>
+			</div>
+		</div>
+	</div>
+	</body>
+</html>

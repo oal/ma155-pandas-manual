@@ -2,6 +2,7 @@
 	"chapters": [
 		{"name": "Introduksjon og installasjon", "slug": "introduksjon-og-installasjon"},
 		{"name": "Introduksjon til Python", "slug": "python"},
-		{"name": "Frekvenstabell og -diagram", "slug": "frekvenstabell-og-diagram"}
+		{"name": "Frekvenstabell og -diagram", "slug": "frekvenstabell-og-diagram"},
+		{"name": "Kovarians og korrelasjon", "slug": "kovarians-og-korrelasjon"}
 	]
 }
