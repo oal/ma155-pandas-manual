@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Manual for Pandas (Grupperte data.ipynb)</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+		<link rel="stylesheet" href="../style.css">
+		<meta charset="utf-8">
+	</head>
+
+	<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-3 menu">
+				<h3>
+					MA-155 Manual for Pandas
+				</h3>
+
+				<hr>
+
+				<nav class="list-group">
+					<h4 class="list-group-item">Navigasjon</h4>
+					<a class="list-group-item" href="introduksjon-og-installasjon.html">Introduksjon og installasjon</a>
+<a class="list-group-item" href="python.html">Introduksjon til Python</a>
+<a class="list-group-item" href="frekvenstabell-og-diagram.html">Frekvenstabell og -diagram</a>
+<a class="list-group-item" href="kovarians-og-korrelasjon.html">Kovarians og korrelasjon</a>
+<a class="list-group-item active" href="grupperte-data.html">Grupperte data</a>
+				</nav>
+
+				<hr>
+
+				<a href="../notebooks/Grupperte data.ipynb" class="btn btn-primary btn-block">
+					Last ned kapittel som notebook<br/>
+					<small>(Grupperte data.ipynb)</small>
+				</a>
+			</div>
+			<section class="col-md-9 content">
+				
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Grupperte-data">Grupperte data<a class="anchor-link" href="#Grupperte-data">&#182;</a></h3><p>Vi skal bestille klovnebukser til medlemmene i fanklubben til det norske curlinglandslaget. Medlemmene har oppgitt livvidde, og opptellingen viste at vi trenger:</p>
+<p>15 i small, 142 i medium, 79 i large, 171 i XL, 114 i XXL og 37 i 3XL. Under setter vi dette opp i en OrderedDict. Denne gjør at vi beholder størrelsene i riktig rekkefølge i kommende tabeller. En vanlig dict / hashmap vil ikke beholdt rekkefølgen.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">OrderedDict</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+<span class="n">data</span><span class="p">[</span><span class="s">&#39;S&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">&#39;Fra&#39;</span><span class="p">:</span> <span class="mi">76</span><span class="p">,</span>
+    <span class="s">&#39;Til&#39;</span><span class="p">:</span> <span class="mi">82</span><span class="p">,</span>
+    <span class="s">&#39;Antall&#39;</span><span class="p">:</span> <span class="mi">15</span>
+<span class="p">}</span>
+<span class="n">data</span><span class="p">[</span><span class="s">&#39;M&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">&#39;Fra&#39;</span><span class="p">:</span> <span class="mi">82</span><span class="p">,</span>
+    <span class="s">&#39;Til&#39;</span><span class="p">:</span> <span class="mi">90</span><span class="p">,</span>
+    <span class="s">&#39;Antall&#39;</span><span class="p">:</span> <span class="mi">142</span>
+<span class="p">}</span>
+<span class="n">data</span><span class="p">[</span><span class="s">&#39;L&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">&#39;Fra&#39;</span><span class="p">:</span> <span class="mi">90</span><span class="p">,</span>
+    <span class="s">&#39;Til&#39;</span><span class="p">:</span> <span class="mi">98</span><span class="p">,</span>
+    <span class="s">&#39;Antall&#39;</span><span class="p">:</span> <span class="mi">79</span>
+<span class="p">}</span>
+<span class="n">data</span><span class="p">[</span><span class="s">&#39;XL&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">&#39;Fra&#39;</span><span class="p">:</span> <span class="mi">98</span><span class="p">,</span>
+    <span class="s">&#39;Til&#39;</span><span class="p">:</span> <span class="mi">106</span><span class="p">,</span>
+    <span class="s">&#39;Antall&#39;</span><span class="p">:</span> <span class="mi">171</span>
+<span class="p">}</span>
+<span class="n">data</span><span class="p">[</span><span class="s">&#39;XXL&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">&#39;Fra&#39;</span><span class="p">:</span> <span class="mi">106</span><span class="p">,</span>
+    <span class="s">&#39;Til&#39;</span><span class="p">:</span> <span class="mi">110</span><span class="p">,</span>
+    <span class="s">&#39;Antall&#39;</span><span class="p">:</span> <span class="mi">114</span>
+<span class="p">}</span>
+<span class="n">data</span><span class="p">[</span><span class="s">&#39;3XL&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">&#39;Fra&#39;</span><span class="p">:</span> <span class="mi">110</span><span class="p">,</span>
+    <span class="s">&#39;Til&#39;</span><span class="p">:</span> <span class="mi">116</span><span class="p">,</span>
+    <span class="s">&#39;Antall&#39;</span><span class="p">:</span> <span class="mi">37</span>
+<span class="p">}</span>
+
+<span class="n">data</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[1]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>OrderedDict([(&apos;S&apos;, {&apos;Antall&apos;: 15, &apos;Fra&apos;: 76, &apos;Til&apos;: 82}),
+             (&apos;M&apos;, {&apos;Antall&apos;: 142, &apos;Fra&apos;: 82, &apos;Til&apos;: 90}),
+             (&apos;L&apos;, {&apos;Antall&apos;: 79, &apos;Fra&apos;: 90, &apos;Til&apos;: 98}),
+             (&apos;XL&apos;, {&apos;Antall&apos;: 171, &apos;Fra&apos;: 98, &apos;Til&apos;: 106}),
+             (&apos;XXL&apos;, {&apos;Antall&apos;: 114, &apos;Fra&apos;: 106, &apos;Til&apos;: 110}),
+             (&apos;3XL&apos;, {&apos;Antall&apos;: 37, &apos;Fra&apos;: 110, &apos;Til&apos;: 116})])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Vi har satt opp hver gruppe med mål i cm. Det vil si at størrelse S gjelder for livvidder fra 76 til 82 cm. Nå kan vi gjøre dette om til en DataFrame, slik at vi kan få laget tabeller og grafer av dette.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">DataFrame</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="c"># Lager en DataFrame fra vår data-variabel, som er av type OrderedDict / dict</span>
+
+<span class="c"># Henter ut kolonnen &quot;Antall&quot;, og gjør den om til en DataFrame. Uten &quot;to_frame&quot; ville vi ikke fått en like fin tabell.</span>
+<span class="n">frekvens</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s">&#39;Antall&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
+
+<span class="n">frekvens</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[2]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Antall</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>S</th>
+      <td>15</td>
+    </tr>
+    <tr>
+      <th>M</th>
+      <td>142</td>
+    </tr>
+    <tr>
+      <th>L</th>
+      <td>79</td>
+    </tr>
+    <tr>
+      <th>XL</th>
+      <td>171</td>
+    </tr>
+    <tr>
+      <th>XXL</th>
+      <td>114</td>
+    </tr>
+    <tr>
+      <th>3XL</th>
+      <td>37</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Nå kan vi videre lage et frekvensdiagram. Vi er fremdeles bare interessert i "Antall"-kolonnen, så vi gjenbruker "frekvens"-variabelen fra tidligere.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># Setter opp plotteverktøyet slik at vi får se figuren direkte i notebooken</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c"># Plotter frekvens som en &quot;bar chart&quot;, med full bredde (kan være 0-1), slik at stolpene treffer hverandre</span>
+<span class="n">frekvens</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Med det samme kan vi også lage en kumulativ frekvenstabell, og plotte denne.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">frekvens_kumulativ</span> <span class="o">=</span> <span class="n">frekvens</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span>
+
+<span class="n">frekvens_kumulativ</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[4]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Antall</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>S</th>
+      <td>15</td>
+    </tr>
+    <tr>
+      <th>M</th>
+      <td>157</td>
+    </tr>
+    <tr>
+      <th>L</th>
+      <td>236</td>
+    </tr>
+    <tr>
+      <th>XL</th>
+      <td>407</td>
+    </tr>
+    <tr>
+      <th>XXL</th>
+      <td>521</td>
+    </tr>
+    <tr>
+      <th>3XL</th>
+      <td>558</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">frekvens_kumulativ</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Intervallgrenser,-bredde-og-gjennomsnitt">Intervallgrenser, bredde og gjennomsnitt<a class="anchor-link" href="#Intervallgrenser,-bredde-og-gjennomsnitt">&#182;</a></h3><p>Nå skal vi utvide DataFramen vår. Vi har allerede fra- og til-grenser, men vi kan enkelt også regne ut bredden for hvert av disse intervallene. Med pandas kan vi bruke "loc" på DataFrame-objekter for å hente ut en rad. Vi definerer hvilken rad det er snakk om som en tekstverdi mellom [ og ].</p>
+<p>Det vi gjør her er at vi lager en ny rad, med navn "Bredde", og setter denne til å være lik "Til"-raden minus "Fra"-raden. Da tar Pandas alle verdier i "Til", og trekker fra samme kolonne i "Fra", og lagrer dette som en ny rad.</p>
+<p>Tilsvarende gjør vi får gjennomsnitt. Da tar vi til- og fra-grenser, legger dem sammen, og deler på to. Det gir verdien midt i intervallet.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s">&#39;Bredde&#39;</span><span class="p">]</span>  <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s">&#39;Til&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s">&#39;Fra&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s">&#39;Gjennomsnitt&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s">&#39;Til&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s">&#39;Fra&#39;</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span>
+
+<span class="n">df</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[6]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>S</th>
+      <th>M</th>
+      <th>L</th>
+      <th>XL</th>
+      <th>XXL</th>
+      <th>3XL</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Antall</th>
+      <td>15</td>
+      <td>142</td>
+      <td>79</td>
+      <td>171</td>
+      <td>114</td>
+      <td>37</td>
+    </tr>
+    <tr>
+      <th>Fra</th>
+      <td>76</td>
+      <td>82</td>
+      <td>90</td>
+      <td>98</td>
+      <td>106</td>
+      <td>110</td>
+    </tr>
+    <tr>
+      <th>Til</th>
+      <td>82</td>
+      <td>90</td>
+      <td>98</td>
+      <td>106</td>
+      <td>110</td>
+      <td>116</td>
+    </tr>
+    <tr>
+      <th>Bredde</th>
+      <td>6</td>
+      <td>8</td>
+      <td>8</td>
+      <td>8</td>
+      <td>4</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>Gjennomsnitt</th>
+      <td>79</td>
+      <td>86</td>
+      <td>94</td>
+      <td>102</td>
+      <td>108</td>
+      <td>113</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">Series</span>
+
+<span class="c"># Forkortelser, så vi slipper å gjenta df.loc[...]</span>
+<span class="n">gjsnitt</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s">&#39;Gjennomsnitt&#39;</span><span class="p">]</span>
+<span class="n">antall</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s">&#39;Antall&#39;</span><span class="p">]</span>
+
+<span class="c"># TODO...</span>
+
+<span class="n">arr</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">antall</span><span class="p">)):</span>
+    <span class="n">repeat_times</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">antall</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="n">arr</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">gjsnitt</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">*</span> <span class="n">repeat_times</span><span class="p">)</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="n">Series</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+
+<span class="n">s</span><span class="o">.</span><span class="n">median</span><span class="p">(),</span> <span class="n">s</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.25</span><span class="p">),</span> <span class="n">s</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.75</span><span class="p">),</span> <span class="n">s</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">s</span><span class="o">.</span><span class="n">var</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansired">---------------------------------------------------------------------------</span>
+<span class="ansired">NameError</span>                                 Traceback (most recent call last)
+<span class="ansigreen">&lt;ipython-input-7-af1b80454c54&gt;</span> in <span class="ansicyan">&lt;module&gt;</span><span class="ansiblue">()</span>
+<span class="ansigreen">     10</span>     arr<span class="ansiyellow">.</span>extend<span class="ansiyellow">(</span><span class="ansiyellow">[</span>gjsnitt<span class="ansiyellow">[</span>i<span class="ansiyellow">]</span><span class="ansiyellow">]</span> <span class="ansiyellow">*</span> repeat_times<span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">     11</span> <span class="ansiyellow"></span>
+<span class="ansigreen">---&gt; 12</span><span class="ansiyellow"> </span>s <span class="ansiyellow">=</span> Series<span class="ansiyellow">(</span>arr<span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">     13</span> <span class="ansiyellow"></span>
+<span class="ansigreen">     14</span> s<span class="ansiyellow">.</span>median<span class="ansiyellow">(</span><span class="ansiyellow">)</span><span class="ansiyellow">,</span> s<span class="ansiyellow">.</span>quantile<span class="ansiyellow">(</span><span class="ansicyan">0.25</span><span class="ansiyellow">)</span><span class="ansiyellow">,</span> s<span class="ansiyellow">.</span>quantile<span class="ansiyellow">(</span><span class="ansicyan">0.75</span><span class="ansiyellow">)</span><span class="ansiyellow">,</span> s<span class="ansiyellow">.</span>mean<span class="ansiyellow">(</span><span class="ansiyellow">)</span><span class="ansiyellow">,</span> s<span class="ansiyellow">.</span>var<span class="ansiyellow">(</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
+
+<span class="ansired">NameError</span>: name &apos;Series&apos; is not defined</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre> 
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+			</section>
+		</div>
+
+		<div class="row">
+			<div class="col-sm-12">
+					<hr>
+					<p class="text-center">
+						<small>Laget v&aring;ren 2016, som prosjektoppgave i MA-155 Statistikk ved UiA av Olav Andreas Lindekleiv</small>
+					</p>
+					<hr>
+			</div>
+		</div>
+	</div>
+	</body>
+</html>
