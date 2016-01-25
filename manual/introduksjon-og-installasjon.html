@@ -20,6 +20,7 @@
 				<nav class="list-group">
 					<h4 class="list-group-item">Navigasjon</h4>
 					<a class="list-group-item active" href="introduksjon-og-installasjon.html">Introduksjon og installasjon</a>
+<a class="list-group-item" href="bruk-av-jupyter.html">Bruk av Jupyter</a>
 <a class="list-group-item" href="python.html">Introduksjon til Python</a>
 <a class="list-group-item" href="frekvenstabell-og-diagram.html">Frekvenstabell og -diagram</a>
 <a class="list-group-item" href="kovarians-og-korrelasjon.html">Kovarians og korrelasjon</a>
@@ -40,159 +41,14 @@
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Introduksjon">Introduksjon<a class="anchor-link" href="#Introduksjon">&#182;</a></h2><p>Denne manualen er en introduksjon til Pandas og iPython/Jupyter, beregnet for statistikkdelen av MA-155 ved Universitetet i Agder. Den tar for seg installasjon og oppsett av nødvendige verktøy, samt bruk av disse for å løse relevante oppgaver og problemer i faget.</p>
+<h1 id="Introduksjon-og-installasjon">Introduksjon og installasjon<a class="anchor-link" href="#Introduksjon-og-installasjon">&#182;</a></h1><h2 id="Introduksjon">Introduksjon<a class="anchor-link" href="#Introduksjon">&#182;</a></h2><p>Denne manualen er en introduksjon til Pandas og iPython/Jupyter, beregnet for statistikkdelen av MA-155 ved Universitetet i Agder. Den tar for seg installasjon og oppsett av nødvendige verktøy, samt bruk av disse for å løse relevante oppgaver og problemer i faget.</p>
 <p>Programmeringsspråket vi bruker er Python. Det er mye brukt innenfor forskning og dataanalyse, og det er utviklet en rekke programpakker og verktøy innenfor ulike felt. For å gjøre det enklest mulig å komme igang, anbefaler jeg Anaconda. Dette er en samling som inneholder Python, samt Pandas, og en rekke andre pakker for databehandling og matematikk.</p>
 <p>Pandas er en pakke for databehandling og matematikk, mens Matplotlib brukes til å tegne grafer. All skriving og kjøring av kode gjøres med Jupyter. Jupyter lar oss kjøre kode, og se resultatet av koden rett i nettleseren i såkalte "notebooks". Disse kan så deles med, og redigeres av andre. Alle notebooks brukt for å lage denne guiden kan lastes ned, og kjøres på egen maskin. Dette er anbefalt, siden du da kan gjøre endringer, og gjenbruke kode til løsing av lignende oppgaver selv.</p>
 <h2 id="Installasjon">Installasjon<a class="anchor-link" href="#Installasjon">&#182;</a></h2><p>Alt du trenger for å komme igang er å <a href="https://www.continuum.io/downloads">laste ned og installere Anaconda</a>. Du kan også bruke en eksisterende versjon av Python, hvis du har dette på maskinen allerede. Du må isåfall installere Pandas og Jupyter på egenhånd. Med Anaconda, går alt av seg selv.</p>
 <p>Anaconda er tilgjengelig til Windows, Mac OSX og Linux, og installeres som et hvilket som helst annet program på maskinen. Den kommer i en Python 2.7, og 3.x-versjon. Det har tidligere vært et problem med kompatibilitet for noen pakker med 3.x-versjonen. Dette er ikke lenger noe problem, og denne guiden er skrevet primært for Python, siden dette er mest fremtidsrettet.</p>
 <p><img src="../notebooks/assets/anaconda.png" alt="Anaconda"></p>
 <p>Når Anaconda er lastet ned, dobbeltklikker du på installasjonsfilen for å starte installasjonen. Du kan trykke "Next" og "I agree", uten å endre noen av valgene under veis. Pass på at "Add Anaconda to my PATH environment variable" er valgt på siste side i installasjonsveiviseren. Du kan gjerne også velge "Register Anaconda as my default Python 3.x", hvis ikke du har andre versjoner av Python på maskinen allerede.</p>
-<h2 id="Test-at-det-virker">Test at det virker<a class="anchor-link" href="#Test-at-det-virker">&#182;</a></h2><p>Når installasjonen er ferdig, gå til startmenyen, og finn programmet "Jupyter Notebook". Du skal få opp et nettleservindu med en filbehandler. Lag en egen mappe til filene dine, hvis du ønsker det. Trykk så på "New", og "Python 3" for å lage en notebook.</p>
-<p>Skriv så inn koden under, ved siden av <code>In []</code> i notebooken din, og trykk CTRL + Enter for å kjøre koden. Alternativt kan du trykke på avspillingsikonet i verktøylinjen på toppen.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="o">%</span><span class="k">matplotlib</span> inline
-
-<span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">Series</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-
-<span class="n">data</span> <span class="o">=</span> <span class="n">Series</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random_sample</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
-<span class="n">data</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-
-
-<div class="output_png output_subarea ">
-<img src="data:image/png;base64,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
-"
->
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Hvis du får en enkel graf, noe tilsvarende denne, har installasjonen gått bra, og du er klar til å fortsette.</p>
+<h2 id="Test-at-det-virker">Test at det virker<a class="anchor-link" href="#Test-at-det-virker">&#182;</a></h2><p>I neste kapittel får du informasjon om hvordan du starter Jupyter, og tester at alle pakkene er installert korrekt.</p>
 
 </div>
 </div>
