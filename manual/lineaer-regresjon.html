@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Manual for Pandas (Lineær regresjon.ipynb)</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+		<link rel="stylesheet" href="../style.css">
+		<meta charset="utf-8">
+	</head>
+
+	<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-3 menu">
+				<h3>
+					MA-155 Manual for Pandas
+				</h3>
+
+				<hr>
+
+				<nav class="list-group">
+					<h4 class="list-group-item">Navigasjon</h4>
+					<a class="list-group-item" href="introduksjon-og-installasjon.html">Introduksjon og installasjon</a>
+<a class="list-group-item" href="bruk-av-jupyter.html">Bruk av Jupyter</a>
+<a class="list-group-item" href="python.html">Introduksjon til Python</a>
+<a class="list-group-item" href="frekvenstabell-og-diagram.html">Frekvenstabell og -diagram</a>
+<a class="list-group-item" href="kovarians-og-korrelasjon.html">Kovarians og korrelasjon</a>
+<a class="list-group-item" href="grupperte-data.html">Grupperte data</a>
+<a class="list-group-item active" href="lineaer-regresjon.html">Lineær regresjon</a>
+				</nav>
+
+				<hr>
+
+				<a href="../notebooks/Lineær regresjon.ipynb" class="btn btn-primary btn-block">
+					Last ned kapittel som notebook<br/>
+					<small>(Lineær regresjon.ipynb)</small>
+				</a>
+			</div>
+			<section class="col-md-9 content">
+				
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Line&#230;r-regresjon">Line&#230;r regresjon<a class="anchor-link" href="#Line&#230;r-regresjon">&#182;</a></h1><h3 id="Data">Data<a class="anchor-link" href="#Data">&#182;</a></h3><p>Vi skal i denne delen av guiden lære om lineær regresjon i Python. Først lager vi, som tidligere, en DataFrame som inneholder tallene våre. Her bruker vi DataFrame.from_dict, og sender inn en dict med X-verdier og Y-verdier. Denne plottes så med en scatter plot. Merk at vi spesifiserer hvilke kolonner vi ønsker å presentere i plottet, på X- og Y-aksen. Vi kunne hatt enda flere kolonner i DataFramen, men fremdeles plukket ut de to kolonnene vi ville plotte ved å spesifisere andre kolonnenavn i "x"- og "y"-parameterne.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">DataFrame</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">({</span>
+    <span class="s">&#39;X&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">97</span><span class="p">,</span> <span class="mi">104</span><span class="p">,</span> <span class="mi">103</span><span class="p">,</span> <span class="mi">97</span><span class="p">,</span> <span class="mi">99</span><span class="p">,</span> <span class="mi">82</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">93</span><span class="p">,</span> <span class="mi">79</span><span class="p">,</span> <span class="mi">89</span><span class="p">],</span>
+    <span class="s">&#39;Y&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">133</span><span class="p">,</span> <span class="mi">151</span><span class="p">,</span> <span class="mi">158</span><span class="p">,</span> <span class="mi">146</span><span class="p">,</span> <span class="mi">134</span><span class="p">,</span> <span class="mi">136</span><span class="p">,</span> <span class="mi">151</span><span class="p">,</span> <span class="mi">146</span><span class="p">,</span> <span class="mi">133</span><span class="p">,</span> <span class="mi">144</span><span class="p">],</span>
+<span class="p">})</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s">&#39;X&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s">&#39;Y&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+QmCC
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Nå har vi et inntrykk av hvordan dataen vår er fordelt. Før vi bruker en ferdig funksjon for lineær regresjon, skal vi gjøre det slik vi ville gjort det for hånd. Pandas og flere andre matematikk-pakker i Python er bygget på numpy. Den opererer på et litt lavere nivå, og gir oss tilgang til matriser, vektorer osv.</p>
+<p>Vi importerer numpy under forkortelsen np. Deretter lager vi en designmatrise. Denne lager vi med to rader, en fylt av bare 1-tall (len(df) henter lengden til DataFramen vår og vi lager dermed en liste med så mange enere). I tillegg henter vi ut verdiene i "X"-kolonnen i DataFramen df. Sammen danner dette designmatrisen.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c"># 2-dimensjonal matrise med x-verdiene i 2. rad. Vi transponerer med .T for å få 2 kolonner (designmatrisen)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">([</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)),</span> <span class="c"># Like mange 1-tall som lengden til DataFrame df</span>
+    <span class="n">df</span><span class="p">[</span><span class="s">&#39;X&#39;</span><span class="p">]</span> <span class="c"># Alle X-verdiene i vår DataFrame</span>
+<span class="p">])</span><span class="o">.</span><span class="n">T</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s">&#39;Designmatrisen:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+<span class="c"># Lager en vektor / 1-dimensjonal matrise med y-verdiene fra DataFrame df (responsvektor).</span>
+<span class="c"># Merk at vi bruker .T for å transponere den, slik at vi får en radvektor og ikke en kolonnevektor,</span>
+<span class="c"># som den ellers ville blitt</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">&#39;Y&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s">&#39;---&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s">&#39;Responsvektor:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Designmatrisen:
+[[   1.   97.]
+ [   1.  104.]
+ [   1.  103.]
+ [   1.   97.]
+ [   1.   99.]
+ [   1.   82.]
+ [   1.  100.]
+ [   1.   93.]
+ [   1.   79.]
+ [   1.   89.]]
+---
+Responsvektor:
+[[133]
+ [151]
+ [158]
+ [146]
+ [134]
+ [136]
+ [151]
+ [146]
+ [133]
+ [144]]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Når designmatrisen er laget, oppretter vi også responsvektoren y. Denne består av Y-verdiene fra DataFramen vår. Merk at både matrisen X og vektoren Y i utgangspunktet ville fått hhv. 2 og 1 rader, men 10 kolonner. Vi transponerer derfor begge to slik at vi får dem nedover. Vi kunne selvsagt laget dem på denne måten fra begynnelsen, men da måtte vi skrevet en del mer, og laget mange små lister, for så å slå dem sammen.</p>
+<h3 id="Matriseregresjon-&quot;for-h&#229;nd&quot;">Matriseregresjon "for h&#229;nd"<a class="anchor-link" href="#Matriseregresjon-&quot;for-h&#229;nd&quot;">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="k">import</span> <span class="n">Math</span>
+
+<span class="c"># Utregning av matriseregresjon slik vi ville gjort &quot;for hånd&quot;. Det resulterer i en matrise,</span>
+<span class="c"># men vi bruker &quot;.flat&quot; for å hente det ut som en flat liste. Da kan vi bruke hurtigmetoden for</span>
+<span class="c"># å hente ut verdiene alpha og beta. Ikke fortvil om du ikke henger helt med her. Det kommer en enklere</span>
+<span class="c"># metode under!</span>
+<span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="p">((</span><span class="n">X</span><span class="o">.</span><span class="n">T</span><span class="o">*</span><span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">I</span><span class="o">*</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">T</span><span class="o">*</span><span class="n">y</span><span class="p">))</span><span class="o">.</span><span class="n">flat</span>
+
+<span class="c"># Bruker matte-formattering, og setter inn alpha og beta med 3 desimaler</span>
+<span class="n">Math</span><span class="p">(</span><span class="s">r&#39;\alpha + \beta x = {:.3f} + {:.3f}x&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[3]:</div>
+
+
+<div class="output_latex output_subarea output_execute_result">
+$$\alpha + \beta x = 82.304 + 0.646x$$
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Over ser du utregningen gjort manuelt etter formelen for matriseregresjon. Vi tar X-matrisen transponert, ganget med seg selv (ikke transponert), og så inversen av denne (.I). Dette ganges så med X transponert ganget med y-vektoren. Det vi får da er en matrise, men vi ønsker en liste, slik at vi kan hente ut alpha og beta direkte. Derfor brukes ".flat" på slutten. Denne "flater ut" matrisen, og vi står igjen med to verdier, alpha og beta. Vi bruker en egenskap i Python som lar oss tilegne to variabler direkte fra en liste med like mange verdier.</p>
+<p>Til slutt bruker vi Jupyter sitt "Math"-objekt. Med dette kan vi få formattert matematiske formler, og bruke spesialbokstaver o.l (her \alpha og \beta). Vi begrenser også alpha og beta til 3 desimaler med {:.3f}. Formattering i Python skjer ved å kalle "format" på en tekst, og så erstatter Python verdier mellom { og } med tilhørende parametere. .3f betyr at vi har et flyttall (kommatall), og vil ha 3 tall etter komma (punktum). Mer om formattering kan leses <a href="https://docs.python.org/2/library/string.html#formatspec">her</a>.</p>
+<h3 id="Line&#230;r-regresjon-(kortform)">Line&#230;r regresjon (kortform)<a class="anchor-link" href="#Line&#230;r-regresjon-(kortform)">&#182;</a></h3><p>Selv om det er greit å vite hvordan man gjør utregninger manuelt, vil vi ofte slippe det når vi har en PC tilgjengelig. Vi kan gjøre det med Pandas, men en enda enklere løsning er å bruke "stats"-modulen i "scipy"-pakken. Scipy er, i tillegg til Pandas og Numpy, en veldig nyttig pakke som du bør kjenne til. Her importerer vi bare en funksjon kalt linregress, og gir den våre X-verdier og Y-verdier. Ut får vi et objekt som forteller oss om stigning, krysning med Y-aksen og standardfeil.</p>
+<p>Variablene xs og ys er ganske enkelt lister som vi henter ut fra DataFramen vår.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="k">import</span> <span class="n">linregress</span>
+
+<span class="n">xs</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s">&#39;X&#39;</span><span class="p">]</span>
+<span class="n">ys</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s">&#39;Y&#39;</span><span class="p">]</span>
+
+<span class="n">lin_reg</span> <span class="o">=</span> <span class="n">linregress</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">)</span>
+
+<span class="n">lin_reg</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[4]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>LinregressResult(slope=0.64577281761198602, intercept=82.303623299189709, rvalue=0.62352955662162679, pvalue=0.054073056598020912, stderr=0.28626830370527284)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Vi kan nå hente ut de verdiene vi er interessert i, fra lin_reg-variabelen. Deretter kan vi printe ut uttrykket for linja, på skjermen. Også her bruker vi ".format" og "Math"-objektet. Du kan fint bruke "print" direkte, med komma mellom verdiene, som vi har gjort tidligere, hvis du synes det er enklere.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">alpha</span> <span class="o">=</span> <span class="n">lin_reg</span><span class="o">.</span><span class="n">intercept</span>
+<span class="n">beta</span> <span class="o">=</span> <span class="n">lin_reg</span><span class="o">.</span><span class="n">slope</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s">&#39;Standardfeil: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">lin_reg</span><span class="o">.</span><span class="n">stderr</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s">&#39;---&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s">&#39;Regresjonslinje:&#39;</span><span class="p">)</span>
+<span class="n">Math</span><span class="p">(</span><span class="s">r&#39;\alpha + \beta x = {:.3f} + {:.3f}x&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Standardfeil: 0.28626830370527284
+---
+Regresjonslinje:
+</pre>
+</div>
+</div>
+
+<div class="output_area"><div class="prompt output_prompt">Out[5]:</div>
+
+
+<div class="output_latex output_subarea output_execute_result">
+$$\alpha + \beta x = 82.304 + 0.646x$$
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Tegne-regresjonslinja">Tegne regresjonslinja<a class="anchor-link" href="#Tegne-regresjonslinja">&#182;</a></h3><p>Nå skal vi tegne regresjonslinja. Vi definerer en funksjon "reg_linje" som tar inn en x-verdi, og returnerer tilhørende y. Så plotter vi et scatter-plott, slik som tidligere. Merk at vi her lagrer figuren i "figur"-variabelen, og ikke viser den direkte som tidligere. Dette er fordi vi ønsker å tegne noe mer på den.</p>
+<p>Vi lager så en ny DataFrame, kalt df2. Første parameter er en liste med Y-verdier, og andre parameter er X-verdiene. Dette kan virke litt bakvendt, men skyldes at første verdi til en DataFrame er verdiene, og andre parameter er indeksene. <em>Vi kan vanligvis nøye oss med å bare legge til verdier i en DataFrame, så teller Pandas opp og legger til indekser for oss. Det kan ikke gjøres motsatt. Det gir ingen mening å spesifisere indekser, uten tilhørende data.</em></p>
+<p>Videre tar vi df2-variabelen, og kjører "line"-plotteren. Her må vi sette "ax"-parameteren lik forrige figur, for vi ønsker å tegne en samlet figur. "legend=False" gjør bare slik at vi skjuler boksen som ville kommet øverst i et av hjørnene for å beskrive linjen med farge og navn. Prøv gjerne med og uten, så ser du forskjellen.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="k">def</span> <span class="nf">reg_linje</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">alpha</span> <span class="o">+</span> <span class="n">beta</span><span class="o">*</span><span class="n">x</span>
+
+<span class="n">figur</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s">&#39;X&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s">&#39;Y&#39;</span><span class="p">)</span>
+
+<span class="n">df2</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="p">([</span><span class="n">reg_linje</span><span class="p">(</span><span class="mi">70</span><span class="p">),</span> <span class="n">reg_linje</span><span class="p">(</span><span class="mi">110</span><span class="p">)],</span> <span class="p">[</span><span class="mi">70</span><span class="p">,</span> <span class="mi">110</span><span class="p">])</span>
+<span class="n">df2</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">figur</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="k">False</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+lwAAAABJRU5ErkJggg==
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Hvis du har lite erfaring med programmering, og Python fra før, kan nok noe av dette virke vanskelig. Det er mye man kan gjøre i Excel, men man før eller siden treffer man på en vegg.</p>
+<p>Med Python, og egnede kodepakker, kan læringskurven virke bratt, men setter man seg litt inn i det, åpnes mange dører. Selv om jeg hadde brukt Python en god del tidligere, hadde jeg hadde aldri brukt Jupyter, Pandas eller Numpy før jeg begynte å skrive denne guiden. Notebook-formatet kan likevel hjelpe med å gjøre læring av programmering mer overkommelig. Brukeren kan laste ned, kjøre, og endre på koden, og få umiddelbar tilbakemelding.</p>
+
+</div>
+</div>
+</div>
+			</section>
+		</div>
+
+		<div class="row">
+			<div class="col-sm-12">
+					<hr>
+					<p class="text-center">
+						<small>Laget v&aring;ren 2016, som prosjektoppgave i MA-155 Statistikk ved UiA av Olav Andreas Lindekleiv</small>
+					</p>
+					<hr>
+			</div>
+		</div>
+	</div>
+	</body>
+</html>
