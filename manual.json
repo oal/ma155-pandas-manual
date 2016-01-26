@@ -5,6 +5,7 @@
 		{"name": "Introduksjon til Python", "slug": "python"},
 		{"name": "Frekvenstabell og -diagram", "slug": "frekvenstabell-og-diagram"},
 		{"name": "Kovarians og korrelasjon", "slug": "kovarians-og-korrelasjon"},
-		{"name": "Grupperte data", "slug": "grupperte-data"}
+		{"name": "Grupperte data", "slug": "grupperte-data"},
+		{"name": "Lineær regresjon", "slug": "lineaer-regresjon"}
 	]
 }
