@@ -2,8 +2,8 @@ import os
 import json
 from nbconvert import HTMLExporter
 
-with open('manual.json') as f:
-	config = json.load(f)
+with open('manual.json', encoding='utf-8') as f:
+	config = json.loads(f.read())
 
 html_exporter = HTMLExporter()
 html_exporter.template_file = 'basic'
@@ -37,7 +37,7 @@ links_index = ['<a class="list-group-item" href="manual/{}.html">{}</a>'.format(
 with open('index.tmpl', 'r') as f:
 	template_index = f.read()
 
-with open('index.html', 'w') as f:
+with open('index.html', 'w', encoding='utf-8') as f:
 	source = template_index % dict(
 			menu='\n'.join(links_index),
 		)

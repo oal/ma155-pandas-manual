@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Manual for Pandas (Mengdelære.ipynb)</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+		<link rel="stylesheet" href="../style.css">
+		<meta charset="utf-8">
+	</head>
+
+	<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-3 menu">
+				<h3>
+					MA-155 Manual for Pandas
+				</h3>
+
+				<hr>
+
+				<nav class="list-group">
+					<h4 class="list-group-item">Navigasjon</h4>
+					<a class="list-group-item" href="introduksjon-og-installasjon.html">Introduksjon og installasjon</a>
+<a class="list-group-item" href="bruk-av-jupyter.html">Bruk av Jupyter</a>
+<a class="list-group-item" href="python.html">Introduksjon til Python</a>
+<a class="list-group-item" href="frekvenstabell-og-diagram.html">Frekvenstabell og -diagram</a>
+<a class="list-group-item" href="kovarians-og-korrelasjon.html">Kovarians og korrelasjon</a>
+<a class="list-group-item" href="grupperte-data.html">Grupperte data</a>
+<a class="list-group-item" href="lineaer-regresjon.html">Lineær regresjon</a>
+<a class="list-group-item active" href="mengdelaere.html">Mengdelære</a>
+				</nav>
+
+				<hr>
+
+				<a href="../notebooks/Mengdelære.ipynb" class="btn btn-primary btn-block">
+					Last ned kapittel som notebook<br/>
+					<small>(Mengdelære.ipynb)</small>
+				</a>
+			</div>
+			<section class="col-md-9 content">
+				
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Mengdel&#230;re">Mengdel&#230;re<a class="anchor-link" href="#Mengdel&#230;re">&#182;</a></h1><h2 id="Sett-og-settoperasjoner">Sett og settoperasjoner<a class="anchor-link" href="#Sett-og-settoperasjoner">&#182;</a></h2><p>Python har innebygget støtte for sett og settoperasjoner. Vi trenger dermed ikke importere noen funksjoner fra Pandas eller Numpy for å gjøre dette. Først lager vi noen sett med data, og så utfører vi noen operasjoner mot disse. Sett A er noen tippeligalag, mens sett B er lag fra Agderfylkene.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="k">import</span> <span class="n">display</span><span class="p">,</span> <span class="n">Math</span>
+
+<span class="c"># Sett skrives med kommaseparerte verdier mellom { og }. Merk at { og } også brukes i dictionaries,</span>
+<span class="c"># men da har man også kolon for å skille nøkkel fra verdi, slik: {&#39;key&#39;: &#39;value&#39;, &#39;key2&#39;: &#39;value2&#39; ...}.</span>
+<span class="n">A</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;Rosenborg&#39;</span><span class="p">,</span> <span class="s">&#39;Brann&#39;</span><span class="p">,</span> <span class="s">&#39;Start&#39;</span><span class="p">,</span> <span class="s">&#39;Sogndal&#39;</span><span class="p">,</span> <span class="s">&#39;Viking&#39;</span><span class="p">}</span>
+<span class="n">B</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;Start&#39;</span><span class="p">,</span> <span class="s">&#39;Jerv&#39;</span><span class="p">,</span> <span class="s">&#39;Vindbjart&#39;</span><span class="p">}</span>
+
+<span class="c"># A|B betyr A union B. Kan også skrives A.union(B). Dvs. alle lagene. Se forklaring lenger nede.</span>
+<span class="n">Omega</span> <span class="o">=</span> <span class="n">A</span><span class="o">|</span><span class="n">B</span>
+
+<span class="c"># Vis Omega:</span>
+<span class="n">Omega</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[1]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{&apos;Brann&apos;, &apos;Jerv&apos;, &apos;Rosenborg&apos;, &apos;Sogndal&apos;, &apos;Start&apos;, &apos;Viking&apos;, &apos;Vindbjart&apos;}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Element-/-ikke-element">Element / ikke element<a class="anchor-link" href="#Element-/-ikke-element">&#182;</a></h3><p>Vi kan enkelt sjekke om en verdi finnes i et sett. Da bruker vi "in"-operatoren i Python. Vi kan også skrive "not in" for motsatt operasjon.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># Hvis x er element i A</span>
+<span class="k">if</span> <span class="s">&#39;Viking&#39;</span> <span class="ow">in</span> <span class="n">A</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s">&#39;Viking er et tippeligalag:&#39;</span><span class="p">)</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">Math</span><span class="p">(</span><span class="s">r&#39;Viking \in A&#39;</span><span class="p">))</span>
+    
+<span class="c"># Hvis x ikke er element i B</span>
+<span class="k">if</span> <span class="s">&#39;Viking&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">B</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s">&#39;Viking er ikke et lag fra Agderfylkene:&#39;</span><span class="p">)</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">Math</span><span class="p">(</span><span class="s">r&#39;Viking \notin B&#39;</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Viking er et tippeligalag:
+</pre>
+</div>
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_latex output_subarea ">
+$$Viking \in A$$
+</div>
+
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Viking er ikke et lag fra Agderfylkene:
+</pre>
+</div>
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_latex output_subarea ">
+$$Viking \notin B$$
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Union,-snitt-og-komplement">Union, snitt og komplement<a class="anchor-link" href="#Union,-snitt-og-komplement">&#182;</a></h3><p>Union og snitt er også innebyggede operasjoner. Man skriver to settvariabler, med en operator i mellom. Dette er "|" for union, og "&amp;" for snitt. Man kan alternativt bruke A.union(B) eller A.intersection(B).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># Union. A|B eller A.union(B):</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Math</span><span class="p">(</span><span class="s">r&#39;A \cup B:&#39;</span><span class="p">),</span> <span class="n">A</span><span class="o">|</span><span class="n">B</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s">&#39;---&#39;</span><span class="p">)</span>
+<span class="c"># Snitt. A&amp;B eller A.intersection(B):</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Math</span><span class="p">(</span><span class="s">r&#39;A \cap B:&#39;</span><span class="p">),</span> <span class="n">A</span><span class="o">&amp;</span><span class="n">B</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s">&#39;---&#39;</span><span class="p">)</span>
+<span class="c"># Differanse. A-B eller A.differense(B):</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Math</span><span class="p">(</span><span class="s">r&#39;A \setminus B:&#39;</span><span class="p">),</span> <span class="n">A</span><span class="o">-</span><span class="n">B</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_latex output_subarea ">
+$$A \cup B:$$
+</div>
+
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_text output_subarea ">
+<pre>{&apos;Brann&apos;, &apos;Jerv&apos;, &apos;Rosenborg&apos;, &apos;Sogndal&apos;, &apos;Start&apos;, &apos;Viking&apos;, &apos;Vindbjart&apos;}</pre>
+</div>
+
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>---
+</pre>
+</div>
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_latex output_subarea ">
+$$A \cap B:$$
+</div>
+
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_text output_subarea ">
+<pre>{&apos;Start&apos;}</pre>
+</div>
+
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>---
+</pre>
+</div>
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_latex output_subarea ">
+$$A \setminus B:$$
+</div>
+
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_text output_subarea ">
+<pre>{&apos;Brann&apos;, &apos;Rosenborg&apos;, &apos;Sogndal&apos;, &apos;Viking&apos;}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Komplement">Komplement<a class="anchor-link" href="#Komplement">&#182;</a></h3><p>Komplement er ikke tilgjengelig som noen operator, men hvis vi først tar union av alle verdiene, kan vi ta differanse med et av settene.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># Komplement</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Math</span><span class="p">(</span><span class="s">r&#39;A^C:&#39;</span><span class="p">),</span> <span class="n">Omega</span><span class="o">-</span><span class="n">A</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_latex output_subarea ">
+$$A^C:$$
+</div>
+
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_text output_subarea ">
+<pre>{&apos;Jerv&apos;, &apos;Vindbjart&apos;}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Flere-operasjoner-sammen">Flere operasjoner sammen<a class="anchor-link" href="#Flere-operasjoner-sammen">&#182;</a></h3><p>Det er mulig å kombinere operasjonene vi har sett på her. Eksempel:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">C</span> <span class="o">=</span> <span class="n">Omega</span><span class="o">-</span><span class="p">(</span><span class="n">A</span><span class="o">&amp;</span><span class="n">B</span><span class="p">)</span> <span class="c"># C = Omega uten snitt av A og B</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s">&#39;Er Jerv element i&#39;</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="s">&#39;?&#39;</span><span class="p">)</span>
+
+<span class="c"># Element-operasjon:</span>
+<span class="s">&#39;Jerv&#39;</span> <span class="ow">in</span> <span class="n">C</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Er Jerv element i {&apos;Viking&apos;, &apos;Vindbjart&apos;, &apos;Jerv&apos;, &apos;Rosenborg&apos;, &apos;Sogndal&apos;, &apos;Brann&apos;} ?
+</pre>
+</div>
+</div>
+
+<div class="output_area"><div class="prompt output_prompt">Out[5]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>True</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Binomialkoeffisient-/-multinomialkoeffisient">Binomialkoeffisient / multinomialkoeffisient<a class="anchor-link" href="#Binomialkoeffisient-/-multinomialkoeffisient">&#182;</a></h2><p>Binomialkoeffisient kan vi regne ut ved hjelp av <a href="http://docs.scipy.org/doc/scipy/reference/generated/scipy.misc.comb.html#scipy.misc.comb">"comb"-funksjonen i Scipy</a>. Dette er det du finner som nCr (n, choose r) på kalkulatoren. Funksjonen kan enten ta tall for n og r, eller lister. Her bruker vi tall. Vi spesifiserer også exact=True, slik at vi får et eksakt heltall som svar.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="kn">from</span> <span class="nn">scipy.misc</span> <span class="k">import</span> <span class="n">comb</span>
+
+<span class="n">comb</span><span class="p">(</span><span class="mi">104</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="n">exact</span><span class="o">=</span><span class="k">True</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[6]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>21243342120</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Multinomialkoeffisienten er ikke like rett-frem ved bruk av de pakkene vi har til rådighet. Vi kan likevel implementere den ved hjelp av binomialkoeffisienten. Se Nyberg sin bok for mer om multinomialkoeffisienten.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="k">def</span> <span class="nf">multinomial</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">ks</span><span class="p">):</span>
+    <span class="n">svar</span> <span class="o">=</span> <span class="n">comb</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">ks</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">exact</span><span class="o">=</span><span class="k">True</span><span class="p">)</span> <span class="c"># Indekser i Python starter på 0. Binomial(n, k_1)</span>
+    
+    <span class="c"># Trekker fra k-verdier fra n (k_1, k_2, ... k_n-2)</span>
+    <span class="c"># og bruker comb ved hver iterasjon for å multiplisere med tidligere svar.</span>
+    <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ks</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">n</span> <span class="o">-=</span> <span class="n">ks</span><span class="p">[</span><span class="n">m</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">svar</span> <span class="o">*=</span> <span class="n">comb</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">ks</span><span class="p">[</span><span class="n">m</span><span class="p">],</span> <span class="n">exact</span><span class="o">=</span><span class="k">True</span><span class="p">)</span>
+        
+    <span class="k">return</span> <span class="n">svar</span>
+
+<span class="c"># Test av funksjonen</span>
+<span class="n">multinomial</span><span class="p">(</span><span class="mi">31</span><span class="p">,</span> <span class="p">[</span><span class="mi">8</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">])</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[7]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>696927647152737000</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+			</section>
+		</div>
+
+		<div class="row">
+			<div class="col-sm-12">
+					<hr>
+					<p class="text-center">
+						<small>Laget v&aring;ren 2016, som prosjektoppgave i MA-155 Statistikk ved UiA av Olav Andreas Lindekleiv</small>
+					</p>
+					<hr>
+			</div>
+		</div>
+	</div>
+	</body>
+</html>
