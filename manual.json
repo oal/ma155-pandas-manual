@@ -7,6 +7,7 @@
 		{"name": "Kovarians og korrelasjon", "slug": "kovarians-og-korrelasjon"},
 		{"name": "Grupperte data", "slug": "grupperte-data"},
 		{"name": "Lineær regresjon", "slug": "lineaer-regresjon"},
-		{"name": "Mengdelære", "slug": "mengdelaere"}
+		{"name": "Mengdelære", "slug": "mengdelaere"},
+		{"name": "Sannsynlighet", "slug": "sannsynlighet"}
 	]
 }
