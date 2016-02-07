@@ -3,6 +3,10 @@ body {
 	margin: 0 auto;
 }
 
+.fb-comments {
+	padding-left: 100px;
+}
+
 /*
 *
 * IPython base
