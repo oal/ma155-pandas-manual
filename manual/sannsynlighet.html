@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Manual for Pandas (Sannsynlighet.ipynb)</title>
+		<meta charset="utf-8">
+		
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+		<link rel="stylesheet" href="../style.css">
+		<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+	</head>
+
+	<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-3 menu">
+				<h3>
+					MA-155 Manual for Pandas
+				</h3>
+
+				<hr>
+
+				<nav class="list-group">
+					<h4 class="list-group-item">Navigasjon</h4>
+					<a class="list-group-item" href="introduksjon-og-installasjon.html">Introduksjon og installasjon</a>
+<a class="list-group-item" href="bruk-av-jupyter.html">Bruk av Jupyter</a>
+<a class="list-group-item" href="python.html">Introduksjon til Python</a>
+<a class="list-group-item" href="frekvenstabell-og-diagram.html">Frekvenstabell og -diagram</a>
+<a class="list-group-item" href="kovarians-og-korrelasjon.html">Kovarians og korrelasjon</a>
+<a class="list-group-item" href="grupperte-data.html">Grupperte data</a>
+<a class="list-group-item" href="lineaer-regresjon.html">Lineær regresjon</a>
+<a class="list-group-item" href="mengdelaere.html">Mengdelære</a>
+<a class="list-group-item active" href="sannsynlighet.html">Sannsynlighet</a>
+				</nav>
+
+				<hr>
+
+				<a href="../notebooks/Sannsynlighet.ipynb" class="btn btn-primary btn-block">
+					Last ned kapittel som notebook<br/>
+					<small>(Sannsynlighet.ipynb)</small>
+				</a>
+			</div>
+			<section class="col-md-9 content">
+				
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Sannsynlighet">Sannsynlighet<a class="anchor-link" href="#Sannsynlighet">&#182;</a></h1><p>For det aller enkleste, som å ta union, snitt osv. mellom to sannsynligheter, gjør vi det enklest uten å hente inn eksterne pakker. Å skrive P(...) o.l. fungerer dårlig med Python sin syntaks, da dette ville blitt evaluert som en funksjon. Den peneste måten å få en skrivemåte som ligner på det vi er vandt til, er nok derfor å bruke dictionaries. Vi kan da lage en dict som heter P, og sette data inni denne, slik:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">P</span> <span class="o">=</span> <span class="p">{}</span> <span class="c"># Tom dict, vi legger inn data på de neste linjene.</span>
+<span class="n">P</span><span class="p">[</span><span class="s">&#39;A&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">5</span> <span class="c"># Tilsvarer P(A)</span>
+<span class="n">P</span><span class="p">[</span><span class="s">&#39;B&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span> <span class="c"># osv...</span>
+<span class="n">P</span><span class="p">[</span><span class="s">&#39;B|A&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">7</span>
+
+<span class="n">P</span> <span class="c"># Vis hva som ligger inne i P-objektet vårt sålangt.</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[1]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{&apos;A&apos;: 0.2, &apos;B&apos;: 0.5, &apos;B|A&apos;: 0.14285714285714285}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Vi kan deretter gjøre utregninger ved å bruke reglene for kombinatorikk.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">P</span><span class="p">[</span><span class="s">&#39;AB&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">P</span><span class="p">[</span><span class="s">&#39;B|A&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">P</span><span class="p">[</span><span class="s">&#39;A&#39;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s">&#39;P(AB) =&#39;</span><span class="p">,</span> <span class="n">P</span><span class="p">[</span><span class="s">&#39;AB&#39;</span><span class="p">])</span>
+
+<span class="n">P</span><span class="p">[</span><span class="s">&#39;AuB&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">P</span><span class="p">[</span><span class="s">&#39;A&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">P</span><span class="p">[</span><span class="s">&#39;B&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">P</span><span class="p">[</span><span class="s">&#39;AB&#39;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s">&#39;P(AuB) =&#39;</span><span class="p">,</span> <span class="n">P</span><span class="p">[</span><span class="s">&#39;AuB&#39;</span><span class="p">])</span>
+
+<span class="n">P</span><span class="p">[</span><span class="s">&#39;A|B&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">P</span><span class="p">[</span><span class="s">&#39;B|A&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">P</span><span class="p">[</span><span class="s">&#39;A&#39;</span><span class="p">])</span><span class="o">/</span><span class="n">P</span><span class="p">[</span><span class="s">&#39;B&#39;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s">&#39;P(A|B) =&#39;</span><span class="p">,</span> <span class="n">P</span><span class="p">[</span><span class="s">&#39;A|B&#39;</span><span class="p">])</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>P(AB) = 0.02857142857142857
+P(AuB) = 0.6714285714285714
+P(A|B) = 0.05714285714285714
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Trekk-fra-en-mengde">Trekk fra en mengde<a class="anchor-link" href="#Trekk-fra-en-mengde">&#182;</a></h3><p>Det finnes dessverre ingen hurtigmetode i de pakkene vi har tilgjengelig, for å regne sannsynligheter ved trekk fra en mengde. Ferdig funksjonalitet får vi i større grad til senere kapitler. Vi kan implementere formlene for trekk i Python, selv, eller vi kan ta målinger ved å plukke tilfeldige verdier mange ganger. Sistnevnte måte kan gjøres som beskrevet under.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">innhold</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;A&#39;</span><span class="p">,</span> <span class="s">&#39;A&#39;</span><span class="p">,</span> <span class="s">&#39;H&#39;</span><span class="p">,</span> <span class="s">&#39;R&#39;</span><span class="p">,</span> <span class="s">&#39;D&#39;</span><span class="p">,</span> <span class="s">&#39;H&#39;</span><span class="p">,</span> <span class="s">&#39;E&#39;</span><span class="p">]</span>
+
+<span class="c"># Henter fire tilfeldige verdier fra innhold, med tilbakelegging.</span>
+<span class="n">utvalg_tilbakelegg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">innhold</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s">&#39;Med tilbakelegging:&#39;</span><span class="p">,</span> <span class="n">utvalg_tilbakelegg</span><span class="p">)</span>
+
+<span class="c"># Henter fire tilfeldige verdier fra innhold, uten tilbakelegging.</span>
+<span class="n">utvalg_uten_tilbakelegg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">innhold</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="k">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s">&#39;Uten tilbakelegging:&#39;</span><span class="p">,</span> <span class="n">utvalg_uten_tilbakelegg</span><span class="p">)</span>
+
+<span class="c"># Sjekke om vi fant H, E, R, D:</span>
+<span class="n">leter_etter</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;H&#39;</span><span class="p">,</span><span class="s">&#39;E&#39;</span><span class="p">,</span><span class="s">&#39;R&#39;</span><span class="p">,</span><span class="s">&#39;D&#39;</span><span class="p">]</span>
+<span class="n">fant_herd</span> <span class="o">=</span> <span class="p">(</span><span class="n">leter_etter</span> <span class="o">==</span> <span class="n">utvalg_uten_tilbakelegg</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span> <span class="c"># Sjekker likhet mellom alle verdier i to lister.</span>
+<span class="nb">print</span><span class="p">(</span><span class="s">&#39;Plukket H, E, R, D?&#39;</span><span class="p">,</span> <span class="n">fant_herd</span><span class="p">)</span>
+
+<span class="c"># Hvis vi sorterer både verdiene vi leter etter, og listen vi plukket, spiller ikke rekkefølgen på utvalget</span>
+<span class="c"># lenger noen rolle.</span>
+<span class="n">leter_etter</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span> <span class="c"># leter_etter er nå [D, E, H, R], sortert alfabetisk</span>
+<span class="n">utvalg_uten_tilbakelegg</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+<span class="n">fant_herd</span> <span class="o">=</span> <span class="p">(</span><span class="n">leter_etter</span> <span class="o">==</span> <span class="n">utvalg_uten_tilbakelegg</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span> <span class="c"># Sjekker likhet mellom alle verdier i to lister.</span>
+<span class="nb">print</span><span class="p">(</span><span class="s">&#39;Plukket D, E, H, R?&#39;</span><span class="p">,</span> <span class="n">fant_herd</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Med tilbakelegging: [&apos;D&apos; &apos;E&apos; &apos;R&apos; &apos;A&apos;]
+Uten tilbakelegging: [&apos;D&apos; &apos;A&apos; &apos;A&apos; &apos;E&apos;]
+Plukket H, E, R, D? False
+Plukket D, E, H, R? False
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Sammenligningene og generering av utvalg fra koden over kan legges inn i løkker. Da kan man kjøre sammenligningene mange ganger, og få en tilnærming til sannsynligheten.</p>
+
+</div>
+</div>
+</div>
+			</section>
+		</div>
+
+		<div class="row">
+			<div class="col-sm-12">
+					<hr>
+					<p class="text-center">
+						<small>Laget v&aring;ren 2016, som prosjektoppgave i MA-155 Statistikk ved UiA av Olav Andreas Lindekleiv</small>
+					</p>
+					<hr>
+			</div>
+		</div>
+	</div>
+	</body>
+</html>
