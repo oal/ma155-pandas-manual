@@ -136,7 +136,7 @@ P(A|B) = 0.05714285714285714
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Trekk-fra-en-mengde">Trekk fra en mengde<a class="anchor-link" href="#Trekk-fra-en-mengde">&#182;</a></h3><p>Det finnes dessverre ingen hurtigmetode i de pakkene vi har tilgjengelig, for å regne sannsynligheter ved trekk fra en mengde. Ferdig funksjonalitet får vi i større grad til senere kapitler. Vi kan implementere formlene for trekk i Python, selv, eller vi kan ta målinger ved å plukke tilfeldige verdier mange ganger. Sistnevnte måte kan gjøres som beskrevet under.</p>
+<h3 id="Trekk-fra-en-mengde">Trekk fra en mengde<a class="anchor-link" href="#Trekk-fra-en-mengde">&#182;</a></h3><p>Det finnes dessverre ingen hurtigmetode i de pakkene vi har tilgjengelig, for å regne sannsynligheter ved trekk fra en mengde. Ferdig funksjonalitet får vi i større grad til senere kapitler. Vi må derfor implementere trekk-formlene selv, eller vi kan la datamaskinen gjøre jobben med å plukke verdier veldig mange ganger i en løkke. Dette kan man gjøre ved å bruke noe ala dette i en for-løkke:</p>
 
 </div>
 </div>
@@ -180,10 +180,10 @@ P(A|B) = 0.05714285714285714
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Med tilbakelegging: [&apos;D&apos; &apos;E&apos; &apos;R&apos; &apos;A&apos;]
-Uten tilbakelegging: [&apos;D&apos; &apos;A&apos; &apos;A&apos; &apos;E&apos;]
+<pre>Med tilbakelegging: [&apos;H&apos; &apos;E&apos; &apos;A&apos; &apos;D&apos;]
+Uten tilbakelegging: [&apos;E&apos; &apos;R&apos; &apos;D&apos; &apos;H&apos;]
 Plukket H, E, R, D? False
-Plukket D, E, H, R? False
+Plukket D, E, H, R? True
 </pre>
 </div>
 </div>
@@ -197,10 +197,35 @@ Plukket D, E, H, R? False
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Sammenligningene og generering av utvalg fra koden over kan legges inn i løkker. Da kan man kjøre sammenligningene mange ganger, og få en tilnærming til sannsynligheten.</p>
+<p>Vi kan også, som nevnt, bygge våre egne funksjoner basert på trekk-formlene. Her er de fire trekk-formlene med to typer data. Man kan også bygge ut formlene for flere typer data ved bruk av multinomial-funksjonen vi lagde i forrige kapittel.</p>
 
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="kn">from</span> <span class="nn">scipy.misc</span> <span class="k">import</span> <span class="n">comb</span>
+
+<span class="k">def</span> <span class="nf">ordnet_tilbakelegg</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">p</span><span class="o">**</span><span class="n">k</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">p</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="n">k</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">ordnet_uten_tilbakelegg</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">comb</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="n">n</span><span class="p">,</span> <span class="n">S</span><span class="o">-</span><span class="n">k</span><span class="p">)</span> <span class="o">/</span> <span class="n">comb</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">S</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">uordnet_tilbakelegg</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">comb</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="o">*</span> <span class="n">ordnet_tilbakelegg</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">uordnet_uten_tilbakelegg</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">comb</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="o">*</span> <span class="n">ordnet_uten_tilbakelegg</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
 </div>
 			</section>
 		</div>
