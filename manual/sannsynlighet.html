@@ -52,15 +52,20 @@
 			</div>
 			<section class="col-md-9 content">
 				
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Sannsynlighet">Sannsynlighet<a class="anchor-link" href="#Sannsynlighet">&#182;</a></h1><p>For det aller enkleste, som å ta union, snitt osv. mellom to sannsynligheter, gjør vi det enklest uten å hente inn eksterne pakker. Å skrive P(...) o.l. fungerer dårlig med Python sin syntaks, da dette ville blitt evaluert som en funksjon. Den peneste måten å få en skrivemåte som ligner på det vi er vandt til, er nok derfor å bruke dictionaries. Vi kan da lage en dict som heter P, og sette data inni denne, slik:</p>
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># Sannsynlighet</span>
+
+<span class="n">For</span> <span class="n">det</span> <span class="n">aller</span> <span class="n">enkleste</span><span class="p">,</span> <span class="n">som</span> <span class="n">å</span> <span class="n">ta</span> <span class="n">union</span><span class="p">,</span> <span class="n">snitt</span> <span class="n">osv</span><span class="o">.</span> <span class="n">mellom</span> <span class="n">to</span> <span class="n">sannsynligheter</span><span class="p">,</span> <span class="n">gjør</span> <span class="n">vi</span> <span class="n">det</span> <span class="n">enklest</span> <span class="n">uten</span> <span class="n">å</span> <span class="n">hente</span> <span class="n">inn</span> <span class="n">eksterne</span> <span class="n">pakker</span><span class="o">.</span> <span class="n">Å</span> <span class="n">skrive</span> <span class="n">P</span><span class="p">(</span><span class="o">...</span><span class="p">)</span> <span class="n">o</span><span class="o">.</span><span class="n">l</span><span class="o">.</span> <span class="n">fungerer</span> <span class="n">dårlig</span> <span class="n">med</span> <span class="n">Python</span> <span class="n">sin</span> <span class="n">syntaks</span><span class="p">,</span> <span class="n">da</span> <span class="n">dette</span> <span class="n">ville</span> <span class="n">blitt</span> <span class="n">evaluert</span> <span class="n">som</span> <span class="n">en</span> <span class="n">funksjon</span><span class="o">.</span> <span class="n">Den</span> <span class="n">peneste</span> <span class="n">måten</span> <span class="n">å</span> <span class="n">få</span> <span class="n">en</span> <span class="n">skrivemåte</span> <span class="n">som</span> <span class="n">ligner</span> <span class="n">på</span> <span class="n">det</span> <span class="n">vi</span> <span class="n">er</span> <span class="n">vandt</span> <span class="n">til</span><span class="p">,</span> <span class="n">er</span> <span class="n">nok</span> <span class="n">derfor</span> <span class="n">å</span> <span class="n">bruke</span> <span class="n">dictionaries</span><span class="o">.</span> <span class="n">Vi</span> <span class="n">kan</span> <span class="n">da</span> <span class="n">lage</span> <span class="n">en</span> <span class="nb">dict</span> <span class="n">som</span> <span class="n">heter</span> <span class="n">P</span><span class="p">,</span> <span class="n">og</span> <span class="n">sette</span> <span class="n">data</span> <span class="n">inni</span> <span class="n">denne</span><span class="p">,</span> <span class="n">slik</span><span class="p">:</span>
+</pre></div>
 
 </div>
 </div>
+</div>
+
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
@@ -371,6 +376,64 @@ Sannsynligheten for å trekke BBOBRLBGR med tilbakelegging: 2.467808144964132e-0
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Gummib&#229;tens-dag">Gummib&#229;tens dag<a class="anchor-link" href="#Gummib&#229;tens-dag">&#182;</a></h3><p>Vi har følgende scenario: Arne og vennene hans skal delta på gummibåtens dag. Dette er et arrangement hvor ungdommer setter seg i små gummibåter og farer ned elva Otra, fra Vennesla til Kristiansand. Arne har lite penger, og kjøper derfor en brukt gummibåt. Han kan velge mellom:</p>
+<ul>
+<li>Gummibåt A: Har fire deler som blåses opp hver for seg.</li>
+<li>Gummibåt B: Har seks deler som blåses opp hver for seg.</li>
+</ul>
+<p>Begge gummibåtene vil synke hvis det går hull på halvparten av luftrommene. Det er 10% sjanse for at hvert rom ryker. Hvilken båt bør Arne kjøpe for å komme seg tryggest mulig gjennom strykene i elva?</p>
+<p>Her trenger vi formelen for uordnet trekk med tilbakelegging, som vi definerte tidligere i kapittelet. Første parameter er sannsynligheten p, så totalt antall luftrom. Deretter kommer antall rom vi kan la sprekke, og som fremdeles vil få Arne og venne hans trygt frem.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">gummibaat_a_synker</span> <span class="o">=</span> <span class="n">uordnet_tilbakelegg</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">gummibaat_b_synker</span> <span class="o">=</span> <span class="n">uordnet_tilbakelegg</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s">&#39;Sjanse for at gummibåt A synker:&#39;</span><span class="p">,</span> <span class="n">gummibaat_a_synker</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="s">&#39;%&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s">&#39;Sjanse for at gummibåt B synker:&#39;</span><span class="p">,</span> <span class="n">gummibaat_b_synker</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="s">&#39;%&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Sjanse for at gummibåt A synker: 4.86 %
+Sjanse for at gummibåt B synker: 1.458 %
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Vi ser dermed at Arne bør kjøpe gummibåt B.</p>
+
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
