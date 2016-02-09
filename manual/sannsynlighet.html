@@ -191,10 +191,10 @@ P(A|B) = 0.05714285714285714
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Med tilbakelegging: [&apos;H&apos; &apos;E&apos; &apos;A&apos; &apos;D&apos;]
-Uten tilbakelegging: [&apos;E&apos; &apos;R&apos; &apos;D&apos; &apos;H&apos;]
+<pre>Med tilbakelegging: [&apos;H&apos; &apos;R&apos; &apos;D&apos; &apos;D&apos;]
+Uten tilbakelegging: [&apos;H&apos; &apos;A&apos; &apos;A&apos; &apos;E&apos;]
 Plukket H, E, R, D? False
-Plukket D, E, H, R? True
+Plukket D, E, H, R? False
 </pre>
 </div>
 </div>
@@ -237,6 +237,150 @@ Plukket D, E, H, R? True
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Trekke-drops-p&#229;-ulike-m&#229;ter">Trekke drops p&#229; ulike m&#229;ter<a class="anchor-link" href="#Trekke-drops-p&#229;-ulike-m&#229;ter">&#182;</a></h3><p>Vi skal nå trekke drops fra en bolle, på ulike måter. Først setter vi opp "drops", som er "bollen" vår. Vi teller så antall drops, og lager en ny dictionary med fargene som nøkkel, men sannsynlighet (antall/totalt antall) som verdi.</p>
+<p>Deretter bruker vi formelen for tilbakelegging, og finner sannsynligheten for at vi trekker en gitt sekvens.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">OrderedDict</span>
+<span class="n">drops</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+<span class="n">drops</span><span class="p">[</span><span class="s">&#39;O&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">drops</span><span class="p">[</span><span class="s">&#39;R&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">8</span>
+<span class="n">drops</span><span class="p">[</span><span class="s">&#39;G&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">drops</span><span class="p">[</span><span class="s">&#39;B&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">17</span>
+<span class="n">drops</span><span class="p">[</span><span class="s">&#39;L&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s">&#39;Drops:&#39;</span><span class="p">,</span> <span class="n">drops</span><span class="p">)</span>
+
+<span class="c"># Henter alle tallverdiene og summerer antall drops:</span>
+<span class="n">antall_drops</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">drops</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> 
+
+<span class="c"># Få en ny &quot;dict&quot; med farge som nøkkel og sannsynlighet for farge = antall/antall_drops</span>
+<span class="n">ps</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">farge</span><span class="p">,</span> <span class="n">antall</span> <span class="ow">in</span> <span class="n">drops</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">ps</span><span class="p">[</span><span class="n">farge</span><span class="p">]</span> <span class="o">=</span>  <span class="n">antall</span><span class="o">/</span><span class="n">antall_drops</span>
+    
+    
+<span class="nb">print</span><span class="p">(</span><span class="s">&#39;Sannsynlighet for farger:&#39;</span><span class="p">,</span> <span class="n">ps</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s">&#39;---&#39;</span><span class="p">)</span>
+
+<span class="c"># GBBROBROL</span>
+<span class="c"># VIKTIG: I Python bruker vi ** for &quot;opphøyd i&quot;, ikke ^. Så f.eks. er 2**3 lik 8.</span>
+<span class="n">farger_tilbakelegg</span> <span class="o">=</span> <span class="n">ps</span><span class="p">[</span><span class="s">&#39;O&#39;</span><span class="p">]</span><span class="o">**</span><span class="mi">1</span> <span class="o">*</span> <span class="n">ps</span><span class="p">[</span><span class="s">&#39;R&#39;</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">ps</span><span class="p">[</span><span class="s">&#39;G&#39;</span><span class="p">]</span><span class="o">**</span><span class="mi">1</span> <span class="o">*</span> <span class="n">ps</span><span class="p">[</span><span class="s">&#39;B&#39;</span><span class="p">]</span><span class="o">**</span><span class="mi">4</span> <span class="o">*</span> <span class="n">ps</span><span class="p">[</span><span class="s">&#39;L&#39;</span><span class="p">]</span><span class="o">**</span><span class="mi">1</span>
+<span class="nb">print</span><span class="p">(</span><span class="s">&#39;Sannsynligheten for å trekke BBOBRLBGR med tilbakelegging:&#39;</span><span class="p">,</span> <span class="n">farger_tilbakelegg</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Drops: OrderedDict([(&apos;O&apos;, 4), (&apos;R&apos;, 8), (&apos;G&apos;, 3), (&apos;B&apos;, 17), (&apos;L&apos;, 5)])
+Sannsynlighet for farger: OrderedDict([(&apos;O&apos;, 0.10810810810810811), (&apos;R&apos;, 0.21621621621621623), (&apos;G&apos;, 0.08108108108108109), (&apos;B&apos;, 0.4594594594594595), (&apos;L&apos;, 0.13513513513513514)])
+---
+Sannsynligheten for å trekke BBOBRLBGR med tilbakelegging: 2.467808144964132e-06
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Videre kan vi lage en funksjon for sekvens uten tilbakelegging. Her må vi ha multinomialfunksjonen vi lagde i forrge kapittel. Vi lager også en liten hjelpefunksjon "multi_uten_tilbakelegg". Denne er veldig kompakt, og krever en del forståelse av Python for å forstå. Ikke fortvil om du ikke forstår koden. Det viktigste er at du forstår hvorfor vi bruker denne formelen i dette tilfellet. Hvis du kjører denne notepaden i Jupyter på din egen maskin, kan du bare bruke funksjonen slik den er, til å løse andre oppgaver!</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># Fra forrige kapittel:</span>
+<span class="kn">from</span> <span class="nn">scipy.misc</span> <span class="k">import</span> <span class="n">comb</span>
+
+<span class="k">def</span> <span class="nf">multinomial</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">ks</span><span class="p">):</span>
+    <span class="n">svar</span> <span class="o">=</span> <span class="n">comb</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">ks</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">exact</span><span class="o">=</span><span class="k">True</span><span class="p">)</span> <span class="c"># Indekser i Python starter på 0. Binomial(n, k_1)</span>
+    
+    <span class="c"># Trekker fra k-verdier fra n (k_1, k_2, ... k_n-2)</span>
+    <span class="c"># og bruker comb ved hver iterasjon for å multiplisere med tidligere svar.</span>
+    <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ks</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">n</span> <span class="o">-=</span> <span class="n">ks</span><span class="p">[</span><span class="n">m</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">svar</span> <span class="o">*=</span> <span class="n">comb</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">ks</span><span class="p">[</span><span class="n">m</span><span class="p">],</span> <span class="n">exact</span><span class="o">=</span><span class="k">True</span><span class="p">)</span>
+        
+    <span class="k">return</span> <span class="n">svar</span>
+
+<span class="c"># Forklaring:</span>
+<span class="c"># N = Totalt antall drops</span>
+<span class="c"># n = Antall drops vi skal plukke</span>
+<span class="c"># Ss = Antall drops av hver farge</span>
+<span class="c"># ks = Antall drops vi skal plukke av hver farge</span>
+<span class="k">def</span> <span class="nf">multi_uten_tilbakelegg</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">Ss</span><span class="p">,</span> <span class="n">ks</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">multinomial</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="n">n</span><span class="p">,</span> <span class="p">[</span><span class="n">Ss</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">ks</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Ss</span><span class="p">))])</span> <span class="o">/</span> <span class="n">multinomial</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">Ss</span><span class="p">)</span>
+
+
+<span class="n">farger_uten_tilbakelegg</span> <span class="o">=</span> <span class="n">multi_uten_tilbakelegg</span><span class="p">(</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="n">antall_drops</span><span class="p">,</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="mi">9</span><span class="p">,</span>
+    <span class="n">Ss</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">drops</span><span class="o">.</span><span class="n">values</span><span class="p">()),</span> <span class="c"># Henter drops fra hver farge ut fra drops-dict, så vi slipper å skrive det på nytt.</span>
+    <span class="n">ks</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s">&#39;Sannsynligheten for å trekke BBOBRLBGR uten tilbakelegging:&#39;</span><span class="p">,</span> <span class="n">farger_uten_tilbakelegg</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Sannsynligheten for å trekke BBOBRLBGR uten tilbakelegging: 4.251394685210036e-06
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Oppsummering">Oppsummering<a class="anchor-link" href="#Oppsummering">&#182;</a></h3><p>Akkurat under dette temaet får vi ikke så mye hjelp av Pandas, og de andre pakkene vi har brukt. Det fine med Python er at det er et fullverdig programmeringsspråk, så man kan selv skrive kode for funksjonalitet som ikke ligger ferdig tilgjengelig. Det kan virke vanskelig nå, men det åpnes mange dører, hvis man kan litt programmering. I de neste kapitlene får vi heldigvis mer hjelp til å løse oppgavene igjen!</p>
+
+</div>
+</div>
 </div>
 
 				<hr>
