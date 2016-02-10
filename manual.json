@@ -8,6 +8,7 @@
 		{"name": "Grupperte data", "slug": "grupperte-data"},
 		{"name": "Lineær regresjon", "slug": "lineaer-regresjon"},
 		{"name": "Mengdelære", "slug": "mengdelaere"},
-		{"name": "Sannsynlighet", "slug": "sannsynlighet"}
+		{"name": "Sannsynlighet", "slug": "sannsynlighet"},
+		{"name": "Grunnleggende Bayes", "slug": "grunnleggende-bayes"}
 	]
 }
