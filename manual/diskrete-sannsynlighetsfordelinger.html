@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Manual for Pandas (Diskrete sannsynlighetsfordelinger.ipynb)</title>
+		<meta charset="utf-8">
+		
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+		<link rel="stylesheet" href="../style.css">
+		
+		<!-- Load mathjax -->
+		<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+		<!-- MathJax configuration -->
+		<script type="text/x-mathjax-config">
+			MathJax.Hub.Config({
+			tex2jax: {
+				inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+				displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+				processEscapes: true,
+				processEnvironments: true
+			},
+			// Center justify equations in code and markdown cells. Elsewhere
+			// we use CSS to left justify single line equations in code cells.
+			displayAlign: 'center',
+			"HTML-CSS": {
+				styles: {'.MathJax_Display': {"margin": 0}},
+				linebreaks: { automatic: true }
+			}
+			});
+		</script>
+		<!-- End of mathjax configuration -->
+	</head>
+
+	<body>
+	<div id="fb-root"></div>
+	<script>
+		(function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) return;
+			js = d.createElement(s); js.id = id;
+			js.src = "//connect.facebook.net/nb_NO/sdk.js#xfbml=1&version=v2.5&appId=1522191924744326";
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+	</script>
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-3 menu">
+				<h3>
+					MA-155 Manual for Pandas
+				</h3>
+
+				<hr>
+
+				<nav class="list-group">
+					<h4 class="list-group-item">Navigasjon</h4>
+					<a class="list-group-item" href="introduksjon-og-installasjon.html">Introduksjon og installasjon</a>
+<a class="list-group-item" href="bruk-av-jupyter.html">Bruk av Jupyter</a>
+<a class="list-group-item" href="python.html">Introduksjon til Python</a>
+<a class="list-group-item" href="frekvenstabell-og-diagram.html">Frekvenstabell og -diagram</a>
+<a class="list-group-item" href="kovarians-og-korrelasjon.html">Kovarians og korrelasjon</a>
+<a class="list-group-item" href="grupperte-data.html">Grupperte data</a>
+<a class="list-group-item" href="lineaer-regresjon.html">Lineær regresjon</a>
+<a class="list-group-item" href="mengdelaere.html">Mengdelære</a>
+<a class="list-group-item" href="sannsynlighet.html">Sannsynlighet</a>
+<a class="list-group-item" href="grunnleggende-bayes.html">Grunnleggende Bayes</a>
+<a class="list-group-item active" href="diskrete-sannsynlighetsfordelinger.html">Diskrete sannsynlighetsfordelinger</a>
+				</nav>
+
+				<hr>
+
+				<a href="../notebooks/Diskrete sannsynlighetsfordelinger.ipynb" class="btn btn-primary btn-block">
+					Last ned kapittel som notebook<br/>
+					<small>(Diskrete sannsynlighetsfordelinger.ipynb)</small>
+				</a>
+			</div>
+			<section class="col-md-9 content">
+				
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Diskrete-sannsynlighetsfordelinger">Diskrete sannsynlighetsfordelinger<a class="anchor-link" href="#Diskrete-sannsynlighetsfordelinger">&#182;</a></h1><p>Nå skal vi se på noen diskrete sannsynlighetsfordelinger. Vi starter med binomisk fordeling. Scipy sin stats-modul inneholder ferdig funksjonalitet for denne, og <a href="https://docs.scipy.org/doc/scipy-0.16.1/reference/stats.html#discrete-distributions">mange andre diskrete fordelinger</a>.</p>
+<p>La oss si at vi har en bøyd mynt som har 60% sjanse for kron. Vi kaster den 10 ganger. Hva er sannsynligheten for at vi får 0, 1, 2 eller 3 kron?</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="k">import</span> <span class="n">binom</span> <span class="c"># Importerer / henter inn binom (Binomisk fordeling)</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">p</span> <span class="o">=</span> <span class="mf">0.6</span>
+
+<span class="n">mynt_kron</span> <span class="o">=</span> <span class="n">binom</span><span class="o">.</span><span class="n">pmf</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+
+<span class="n">mynt_kron</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[1]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([ 0.00010486,  0.00157286,  0.01061683,  0.04246733])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Her bruker vi "pmf"-metoden til binom-fordelingen. PMF står for "Probability Mass Function". Vi sier at vi vil ha sannsynligheten for 0, 1, 2 og 3 kron (første parameter), med 10 kast (andre parameter). Hvert kast er uavhengig av tidligere kast, og har 60% (0.6) sjanse for kron.</p>
+<p>Vi ser at vi får tilbake en liste. Første verdi er sannsynligheten for 0 kron, andre verdi for 1 kron osv. Hvis vi vil ha summen av sannsynlighetene, bruker vi "sum"-funksjonen til Python, slik:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="nb">sum</span><span class="p">(</span><span class="n">mynt_kron</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[2]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.054761881600000041</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Vi ser dermed at det er ca 5.5% sjanse for at vi får 0, 1, 2 eller 3 kron på 10 kast, med denne bøyde mynten.</p>
+<p>Videre kan vi også finne variansen til en binomisk fordeling, ved å bruke "var"-funksjonen til "binom". Her er parameterne 10 og 0.6 hhv. antall kast, og sannsynlighet for kron.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="nb">print</span><span class="p">(</span><span class="s">&#39;Varians:&#39;</span><span class="p">,</span> <span class="n">binom</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s">&#39;Forventning:&#39;</span><span class="p">,</span> <span class="n">n</span> <span class="o">*</span> <span class="n">p</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Varians: 2.4
+Forventning: 6.0
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+
+				<hr>
+				<div class="fb-comments" data-numposts="5" data-width="600"></div>
+			</section>
+		</div>
+
+		<div class="row">
+			<div class="col-sm-12">
+					<hr>
+					<p class="text-center">
+						<small>Laget v&aring;ren 2016, som prosjektoppgave i MA-155 Statistikk ved UiA av Olav Andreas Lindekleiv</small>
+					</p>
+					<hr>
+			</div>
+		</div>
+	</div>
+	</body>
+</html>

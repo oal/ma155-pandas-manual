@@ -6,7 +6,28 @@
 		
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 		<link rel="stylesheet" href="../style.css">
-		<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+		
+		<!-- Load mathjax -->
+		<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+		<!-- MathJax configuration -->
+		<script type="text/x-mathjax-config">
+			MathJax.Hub.Config({
+			tex2jax: {
+				inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+				displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+				processEscapes: true,
+				processEnvironments: true
+			},
+			// Center justify equations in code and markdown cells. Elsewhere
+			// we use CSS to left justify single line equations in code cells.
+			displayAlign: 'center',
+			"HTML-CSS": {
+				styles: {'.MathJax_Display': {"margin": 0}},
+				linebreaks: { automatic: true }
+			}
+			});
+		</script>
+		<!-- End of mathjax configuration -->
 	</head>
 
 	<body>
@@ -42,6 +63,7 @@
 <a class="list-group-item" href="mengdelaere.html">Mengdelære</a>
 <a class="list-group-item" href="sannsynlighet.html">Sannsynlighet</a>
 <a class="list-group-item" href="grunnleggende-bayes.html">Grunnleggende Bayes</a>
+<a class="list-group-item" href="diskrete-sannsynlighetsfordelinger.html">Diskrete sannsynlighetsfordelinger</a>
 				</nav>
 
 				<hr>
