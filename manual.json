@@ -10,6 +10,7 @@
 		{"name": "Mengdelære", "slug": "mengdelaere"},
 		{"name": "Sannsynlighet", "slug": "sannsynlighet"},
 		{"name": "Grunnleggende Bayes", "slug": "grunnleggende-bayes"},
-		{"name": "Diskrete sannsynlighetsfordelinger", "slug": "diskrete-sannsynlighetsfordelinger"}
+		{"name": "Diskrete sannsynlighetsfordelinger", "slug": "diskrete-sannsynlighetsfordelinger"},
+                {"name": "Kontinuerlige sannsynlighetsfordelinger", "slug": "kontinuerlige-sannsynlighetsfordelinger"}
 	]
 }
