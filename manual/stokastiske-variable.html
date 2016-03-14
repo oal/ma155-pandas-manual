@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Manual for Pandas (Stokastiske variable.ipynb)</title>
+		<meta charset="utf-8">
+		
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+		<link rel="stylesheet" href="../style.css">
+		
+		<!-- Load mathjax -->
+		<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+		<!-- MathJax configuration -->
+		<script type="text/x-mathjax-config">
+			MathJax.Hub.Config({
+			tex2jax: {
+				inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+				displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+				processEscapes: true,
+				processEnvironments: true
+			},
+			// Center justify equations in code and markdown cells. Elsewhere
+			// we use CSS to left justify single line equations in code cells.
+			displayAlign: 'center',
+			"HTML-CSS": {
+				styles: {'.MathJax_Display': {"margin": 0}},
+				linebreaks: { automatic: true }
+			}
+			});
+		</script>
+		<!-- End of mathjax configuration -->
+	</head>
+
+	<body>
+	<div id="fb-root"></div>
+	<script>
+		(function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) return;
+			js = d.createElement(s); js.id = id;
+			js.src = "//connect.facebook.net/nb_NO/sdk.js#xfbml=1&version=v2.5&appId=1522191924744326";
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+	</script>
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-3 menu">
+				<h3>
+					MA-155 Manual for Pandas
+				</h3>
+
+				<hr>
+
+				<nav class="list-group">
+					<h4 class="list-group-item">Navigasjon</h4>
+					<a class="list-group-item" href="introduksjon-og-installasjon.html">Introduksjon og installasjon</a>
+<a class="list-group-item" href="bruk-av-jupyter.html">Bruk av Jupyter</a>
+<a class="list-group-item" href="python.html">Introduksjon til Python</a>
+<a class="list-group-item" href="frekvenstabell-og-diagram.html">Frekvenstabell og -diagram</a>
+<a class="list-group-item" href="kovarians-og-korrelasjon.html">Kovarians og korrelasjon</a>
+<a class="list-group-item" href="grupperte-data.html">Grupperte data</a>
+<a class="list-group-item" href="lineaer-regresjon.html">Lineær regresjon</a>
+<a class="list-group-item" href="mengdelaere.html">Mengdelære</a>
+<a class="list-group-item" href="sannsynlighet.html">Sannsynlighet</a>
+<a class="list-group-item" href="grunnleggende-bayes.html">Grunnleggende Bayes</a>
+<a class="list-group-item" href="diskrete-sannsynlighetsfordelinger.html">Diskrete sannsynlighetsfordelinger</a>
+<a class="list-group-item" href="kontinuerlige-sannsynlighetsfordelinger.html">Kontinuerlige sannsynlighetsfordelinger</a>
+<a class="list-group-item active" href="stokastiske-variable.html">Stokastiske variable</a>
+				</nav>
+
+				<hr>
+
+				<a href="../notebooks/Stokastiske variable.ipynb" class="btn btn-primary btn-block">
+					Last ned kapittel som notebook<br/>
+					<small>(Stokastiske variable.ipynb)</small>
+				</a>
+			</div>
+			<section class="col-md-9 content">
+				
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Stokastiske-variable">Stokastiske variable<a class="anchor-link" href="#Stokastiske-variable">&#182;</a></h1><p>Vi får oppgitt en stokastisk variabel X som er summen når vi slår to rettferdige $D_8$-terninger. La oss se på noe av det vi kan finne ut for denne stokastiske variabelen.</p>
+<h2 id="Tabell-over-sannsynligheter">Tabell over sannsynligheter<a class="anchor-link" href="#Tabell-over-sannsynligheter">&#182;</a></h2><p>Under henter vi inn DataFrame, og importerer numpy. Videre lages en hjelpevariabel for antall sider på terningen, altså 8. Vi trenger en liste over sannsynlighetene som er dobbelt så lang som antall sider på terningen. Siden Python bruker 0-indekserte lister (første element er indeks 0, andre element er 1 osv), må vi ha en ekstra plass i "sanns"-listen. Vi bruker numpy sin "zeros"-metode for å få en liste med bare 0-ere.</p>
+<p>Nå løper vi så gjennom mulighetene for terningene a og b, og summerer. Vi løper fra 1 til og med antall sider. "range" i Python går, som sett tidligere, opp til n-1, så vi legger på en her også.</p>
+<p>Etter dette har vi en liste med antall forekomster av de ulike summene. Prøv gjerne å printe "sanns" og se selv. Til slutt lager vi en DataFrame fra dataene våre. Merk at vi bruker sanns[2:] for å ikke ta med de to første elementene i listen. Disse vil alltid være 0 (ingen kombinasjoner av to terninger gir 0 eller 1). Vi deler også på summen av sannsynlighetene for å få en normalisert tabell.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">DataFrame</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">ant_sider</span> <span class="o">=</span> <span class="mi">8</span>
+<span class="n">sanns</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">ant_sider</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">ant_sider</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">ant_sider</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">sanns</span><span class="p">[</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        
+<span class="n">norm_data</span> <span class="o">=</span> <span class="n">sanns</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span><span class="o">/</span><span class="nb">sum</span><span class="p">(</span><span class="n">sanns</span><span class="p">)</span>
+<span class="n">indekser</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">ant_sider</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="p">(</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">norm_data</span><span class="p">,</span>
+    <span class="n">index</span><span class="o">=</span><span class="n">indekser</span><span class="p">,</span>
+    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;Sannsynlighet&#39;</span><span class="p">]</span>
+<span class="p">)</span>
+
+<span class="n">df</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[2]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Sannsynlighet</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2</th>
+      <td>0.015625</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.031250</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.046875</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0.062500</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>0.078125</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0.093750</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>0.109375</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>0.125000</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>0.109375</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>0.093750</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>0.078125</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>0.062500</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>0.046875</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>0.031250</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>0.015625</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Sannsynlighetsdiagram">Sannsynlighetsdiagram<a class="anchor-link" href="#Sannsynlighetsdiagram">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+
+<span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXcAAAEDCAYAAADOc0QpAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
+AAALEgAACxIB0t1+/AAAG8BJREFUeJzt3XuUlPWd5/H3pwEvjA2IXBq5dGOMN5LoMQ4SmSyV6BjU
+UYwmLhhl9Gx22UQijruJHrJHOsls1owHM2GdLBKNWVCiY8waMl7CulpqosELQcFwU6G5CYqILY6O
+gN/943loi7Loru6qhu6Hz+ucOjyX3/N9ftVNffpXv6p6ShGBmZllS82B7oCZmVWfw93MLIMc7mZm
+GeRwNzPLIIe7mVkGOdzNzDKorHCXNF7SCkmrJF1XYv/xkp6S9L6ka0vsr5G0WNKCanTazMxa12a4
+S6oBbgG+BIwCJkk6oajZm8C3gJv2UWYa8OcK+mlmZu1Qzsh9NLA6IpoiYidwNzChsEFEbI2I54Fd
+xQdLGgacC9xWhf6amVkZygn3ocD6gvUN6bZy/Rj4NuCPwpqZ7Sed+oKqpPOALRGxBFB6MzOzTtaz
+jDYbgREF68PSbeUYC1wg6VzgcKBW0tyImFzcUJJH9mZm7RQRJQfN5YzcnwWOlVQv6RBgItDau15a
+ThQR0yNiREQckx73aKlgL2j/sduMGTNKbq/GzbVd27Vdu6vXbq1ua9ocuUfEbklTgYUkfwxuj4jl
+kqYku2OOpMHAc0At8KGkacBJEbGjrfpmZlZ95UzLEBEPA8cXbbu1YHkLMLyNGo8Dj3egj2Zm1k5d
+/hOquVzOtV3btV37oK3d0bpqa95mf5EUXaUvZmbdgSRiHy+oljUtY2YHVkNDA01NTQe6G3aA1NfX
+s3bt2nYd45G7WTeQjtAOdDfsANnX77+1kXuXn3M3M7P2c7ibmWWQw93MLIMc7mZmqe9973tcfvnl
+AKxfv54+ffqU9VpHU1MTNTU1fPjhh53dxbI53M26obq6BiR12q2urqFd/fn973/P2LFj6devHwMG
+DODzn/88zz//fOfc+U4mJa9PDh8+nObm5pb1co9rr876w+C3Qpp1Q1u2NNGZV9HesqX8oHrnnXc4
+//zzufXWW/nqV7/KBx98wJNPPsmhhx7aaf3LkojolHdDeeRuZhVZtWoVkrjkkkuQxKGHHspZZ53F
+pz71KV599VXOPPNMBgwYwKBBg7jssstobm5uOXbkyJHMnDmTk08+mSOPPJJJkybxwQcfAPD4448z
+fPhwbr75ZgYPHszQoUP5xS9+0XLsgw8+yKhRo+jTp09LO4BPf/rTPPDAAy3tdu3axcCBA3nhhRda
+Rslz586lvr6eQYMG8cMf/rDk/SoeUa9du5Zx48bRt29fzj77bKZOndoyhQNJSN95550l60YEN954
+I8ceeywDBw5k4sSJbN++HYBx48YB0K9fP/r06cOiRYsq+XW0cLibWUWOO+44evTowRVXXMHDDz/c
+ElqQhNr06dPZvHkzy5cvZ8OGDTQ2Nu51/L333svChQtZs2YNL7zwwl4BvnnzZt555x02bdrEbbfd
+xlVXXcXbb78NwNe//nV+9rOf0dzczLJly/jiF78IwOTJk5k3b15LjQceeICjjz6ak08+uWXbH/7w
+B1avXs0jjzzC97//fVauXFnyvhVOtVx66aWMGTOGN998kxkzZjBv3ryPTcXsq+6sWbNYsGABTz75
+JJs2beLII4/km9/8JgBPPPEEAM3NzTQ3N3P66aeX9XNvU2dd/rK9t6QrZlZK8eMDCIhOvLXv8bhi
+xYq48sorY/jw4dGrV6+44IIL4vXXX/9Yu/vvvz9OPfXUlvWGhoaYP39+y/p3vvOd+MY3vhEREfl8
+Pnr37h27d+9u2T9o0KBYtGhRRETU19fHnDlzorm5ea9zbNq0Kfr06RPvvPNORER85StfiZtuuiki
+ItauXRs1NTWxadOmlvajR4+Oe+65JyIiGhsb4/LLL9+r7e7du6OpqSl69eoV7733Xstxl1122cfa
+7qvuiSeeGI8++uhefezVq1fs3r071qxZ03KefdnX7yPdXjJTPXI3s4odf/zx/PznP2fdunUsW7aM
+TZs2cc011/D6668zceJEhg0bRr9+/bjsssvYunXrXscOHjy4Zbl3797s2PHRlcKPOuooampqSu6/
+7777eOCBB6ivr+cLX/gCf/zjHwEYMmQIY8eO5b777uPtt9/moYce4mtf+1rZ5yzltddeo3///hx2
+2GEt24YP//iFcPdVt6mpiS9/+cv079+f/v37c9JJJ9GrVy+2bNnS4Rdi2+JwN7OqOu6447jiiitY
+unQp06dPp0ePHrz00kts376dO++8s2ovHH72s5/l/vvv54033mDChAlccsklLfv2TM3ce++9nHHG
+GQwZMqSicw0ZMoRt27bx/vvvt2xbv359K0fsbcSIETz00ENs27aNbdu28dZbb/Huu+8yZMgQh7uZ
+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
+l/cWLwAAAABJRU5ErkJggg==
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Forventning,-varians-og-standardavvik">Forventning, varians og standardavvik<a class="anchor-link" href="#Forventning,-varians-og-standardavvik">&#182;</a></h2><p>Istedenfor å regne ut forventning, varians osv. selv, kan vi lage vår egen diskrete sannsynlighetsfordeling ut fra sannsynlighetene vi fant over. Vi kan importere rv_discrete (finnes tilsvarende for kontinuerlige fordelinger), og bruke denne direkte. Her lager vi en d8_fordeling som tar inn de diskrete verdiene (indekser-variabelen fra tidligere), og den normaliserte listen med sannsynligheter (slik at summen er 1).</p>
+<p>Nå har vi tilgang til alle metodene vi har brukt på de innebygde fordelingene i vår egen fordeling. Fantastisk!</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="k">import</span> <span class="n">rv_discrete</span>
+
+<span class="n">d8_fordeling</span> <span class="o">=</span> <span class="n">rv_discrete</span><span class="p">(</span>
+    <span class="n">values</span><span class="o">=</span><span class="p">(</span><span class="n">indekser</span><span class="p">,</span> <span class="n">norm_data</span><span class="p">),</span>
+    <span class="n">name</span><span class="o">=</span><span class="s">&#39;d8_fordeling&#39;</span>
+<span class="p">)</span>
+
+<span class="n">d8_fordeling</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">d8_fordeling</span><span class="o">.</span><span class="n">var</span><span class="p">(),</span> <span class="n">d8_fordeling</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[4]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(9.0, 10.5, 3.2403703492039302)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Som nevnt over, kan vi også lage våre egne kontinuerlige sannsynlighetsfordelinger. Det er litt mer kode, og du kan se et eksempel under. Men husk på at selv om du lager din egen fordeling, så er den ikke nødvendigvis en sannsynlighetsfordeling! I eksempelet under, er f.eks. CDF negativ under 0, og dette er derfor ingen sannsynlighetsfordeling, selv om den går opp til 1 igjen i $\frac{\pi}{2}$.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[57]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="k">import</span> <span class="n">rv_continuous</span>
+
+<span class="k">class</span> <span class="nc">cos_fordeling_gen</span><span class="p">(</span><span class="n">rv_continuous</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_cdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="k">if</span> <span class="n">a</span> <span class="o">&gt;=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span> <span class="ow">and</span> <span class="n">a</span> <span class="o">&lt;=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span> <span class="k">else</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
+    <span class="k">def</span> <span class="nf">_pdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="k">if</span> <span class="n">a</span> <span class="o">&gt;=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span> <span class="ow">and</span> <span class="n">a</span> <span class="o">&lt;=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span> <span class="k">else</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
+    
+<span class="n">cos_fordeling</span> <span class="o">=</span> <span class="n">cos_fordeling_gen</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&#39;cos_fordeling&#39;</span><span class="p">)</span>
+
+<span class="n">vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
+<span class="n">df2</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="p">(</span><span class="n">cos_fordeling</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">vals</span><span class="p">),</span> <span class="n">vals</span><span class="p">)</span>
+
+<span class="n">df2</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">legend</span><span class="o">=</span><span class="k">None</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Stokastiske-flervariable">Stokastiske flervariable<a class="anchor-link" href="#Stokastiske-flervariable">&#182;</a></h2><p>Vi setter opp en tabell over de stokastiske variablene X og Y som en dataframe.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[111]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">df</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">[</span>
+        <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>
+        <span class="p">[</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>
+        <span class="p">[</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">]</span>
+    <span class="p">],</span>
+    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;X=1&#39;</span><span class="p">,</span> <span class="s">&#39;X=2&#39;</span><span class="p">,</span> <span class="s">&#39;X=3&#39;</span><span class="p">],</span>
+    <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;Y=2&#39;</span><span class="p">,</span> <span class="s">&#39;Y=3&#39;</span><span class="p">,</span> <span class="s">&#39;Y=4&#39;</span><span class="p">]</span>
+<span class="p">)</span>
+
+<span class="n">df</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[111]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>X=1</th>
+      <th>X=2</th>
+      <th>X=3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Y=2</th>
+      <td>0.10</td>
+      <td>0.15</td>
+      <td>0.10</td>
+    </tr>
+    <tr>
+      <th>Y=3</th>
+      <td>0.05</td>
+      <td>0.10</td>
+      <td>0.10</td>
+    </tr>
+    <tr>
+      <th>Y=4</th>
+      <td>0.05</td>
+      <td>0.20</td>
+      <td>0.15</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>For å lage en kumulativ tabell bruker vi "cumsum"-metoden, men vi må gjøre den to ganger. Første gang regner kumulativt nedover, og andre gangen, bortover (0 og 1 spesifiserer retning).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[114]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">k_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">k_df</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[114]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>X=1</th>
+      <th>X=2</th>
+      <th>X=3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Y=2</th>
+      <td>0.10</td>
+      <td>0.25</td>
+      <td>0.35</td>
+    </tr>
+    <tr>
+      <th>Y=3</th>
+      <td>0.15</td>
+      <td>0.40</td>
+      <td>0.60</td>
+    </tr>
+    <tr>
+      <th>Y=4</th>
+      <td>0.20</td>
+      <td>0.65</td>
+      <td>1.00</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Vi kan finne sannsynligheten P(X+Y=5) ved å summere celler. For å finne en celle, kan vi bruke ".loc" og spesifisere indeks og kolonne for den verdien vi vil ha ut.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[108]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">ans</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s">&#39;Y=4&#39;</span><span class="p">][</span><span class="s">&#39;X=1&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s">&#39;Y=3&#39;</span><span class="p">][</span><span class="s">&#39;X=2&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s">&#39;Y=2&#39;</span><span class="p">][</span><span class="s">&#39;X=3&#39;</span><span class="p">]</span>
+
+<span class="n">ans</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[108]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.5</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Som "på papir" kan vi også finne sannsynligheten for at X = 1 gitt at X+Y = 5.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[115]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s">&#39;Y=4&#39;</span><span class="p">][</span><span class="s">&#39;X=1&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">ans</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[115]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.10000000000000001</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+				<hr>
+				<div class="fb-comments" data-numposts="5" data-width="600"></div>
+			</section>
+		</div>
+
+		<div class="row">
+			<div class="col-sm-12">
+					<hr>
+					<p class="text-center">
+						<small>Laget v&aring;ren 2016, som prosjektoppgave i MA-155 Statistikk ved UiA av <a href="http://olav.it/" target="_blank">Olav Andreas Lindekleiv</a></small>
+					</p>
+					<hr>
+			</div>
+		</div>
+	</div>
+	</body>
+</html>
