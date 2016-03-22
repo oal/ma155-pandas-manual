@@ -12,6 +12,7 @@
 		{"name": "Grunnleggende Bayes", "slug": "grunnleggende-bayes"},
 		{"name": "Diskrete sannsynlighetsfordelinger", "slug": "diskrete-sannsynlighetsfordelinger"},
 		{"name": "Kontinuerlige sannsynlighetsfordelinger", "slug": "kontinuerlige-sannsynlighetsfordelinger"},
-		{"name": "Stokastiske variable", "slug": "stokastiske-variable"}
+		{"name": "Stokastiske variable", "slug": "stokastiske-variable"},
+		{"name": "Statistisk inferens med Bayes", "slug": "statistisk-inferens"}
 	]
 }
