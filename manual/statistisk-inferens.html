@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Manual for Pandas (Statistisk inferens med Bayes.ipynb)</title>
+		<title>Manual for Pandas (Statistisk inferens med Bayes teorem.ipynb)</title>
 		<meta charset="utf-8">
 		
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -66,14 +66,14 @@
 <a class="list-group-item" href="diskrete-sannsynlighetsfordelinger.html">Diskrete sannsynlighetsfordelinger</a>
 <a class="list-group-item" href="kontinuerlige-sannsynlighetsfordelinger.html">Kontinuerlige sannsynlighetsfordelinger</a>
 <a class="list-group-item" href="stokastiske-variable.html">Stokastiske variable</a>
-<a class="list-group-item active" href="statistisk-inferens.html">Statistisk inferens med Bayes</a>
+<a class="list-group-item active" href="statistisk-inferens.html">Statistisk inferens med Bayes teorem</a>
 				</nav>
 
 				<hr>
 
-				<a href="../notebooks/Statistisk inferens med Bayes.ipynb" class="btn btn-primary btn-block">
+				<a href="../notebooks/Statistisk inferens med Bayes teorem.ipynb" class="btn btn-primary btn-block">
 					Last ned kapittel som notebook<br/>
-					<small>(Statistisk inferens med Bayes.ipynb)</small>
+					<small>(Statistisk inferens med Bayes teorem.ipynb)</small>
 				</a>
 			</div>
 			<section class="col-md-9 content">
@@ -83,7 +83,7 @@
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Statistisk-inferens">Statistisk inferens<a class="anchor-link" href="#Statistisk-inferens">&#182;</a></h1><p>Vi skal se mer på Bayes teorem og statistisk inferens. Først importerer vi de pakkene og klassene vi trenger.</p>
+<h1 id="Statistisk-inferens:-Bayes-teorem">Statistisk inferens: Bayes teorem<a class="anchor-link" href="#Statistisk-inferens:-Bayes-teorem">&#182;</a></h1><p>Vi skal se mer på Bayes teorem og statistisk inferens. Først importerer vi de pakkene og klassene vi trenger.</p>
 
 </div>
 </div>
@@ -108,7 +108,7 @@
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>I dette eksempelet ser vi på julenisseoppgaven i læreboka, på side 232 (Statistisk infersens: Bayes teorem, oppgave 1).</p>
+<h2 id="Eksempel">Eksempel<a class="anchor-link" href="#Eksempel">&#182;</a></h2><p>I dette eksempelet ser vi på julenisseoppgaven i læreboka, på side 232 (Statistisk infersens: Bayes teorem, oppgave 1).</p>
 <p>Vi får oppgitt at julenissens verksted lager 10 typer sekker (nummerert 1-10). Det blir laget 17 ganger sekknummer av hver sekktype. Altså 17 av type 1, 34 av type 2 osv. Det er $sekknummer^2%$ myke pakker i sekkene.</p>
 <p>For å presentere dette i kodeform, på en ryddig måte, bruker vi Pandas sin Series-klasse. Først lager vi en serie med tallene fra 1 t.o.m. 10, som er sekktypenummer/indekser.</p>
 <p>Prioren vår blir da dette tallet, ganger 17. En veldig nyttig snarvei med Pandas-serier, er at vi kan gjøre regneoperasjoner på dem direkte. Hvis vi tar f.eks. en serie, ganget et heltall, blir alle elementene i serien ganget med dette tallet, og vi får en ny serie. Dette er "priors"-variabelen i koden under.</p>
@@ -605,8 +605,8 @@ SVqcIS5JDTPEJalhhrgkNcwQl6SG/S9Y5MGT3kJG0AAAAABJRU5ErkJggg==
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Kontinuerlig-funksjon-og-symbolsk-integrasjon">Kontinuerlig funksjon og symbolsk integrasjon<a class="anchor-link" href="#Kontinuerlig-funksjon-og-symbolsk-integrasjon">&#182;</a></h2><p>Det hender vi får funksjoner med delt funksjonsforskrift. Med metodene vi har brukt tidligere, vil vi ikke få noen særlig hjelp i disse tilfellene. Ja, vi kan gjøre numerisk integrasjon ved å evaluere veldig mange punkter, men la oss heller se på en annen løsning.</p>
-<p>Anaconda blir levert med en pakke som heter "sympy". Denne pakken lar deg regne symbolsk med Python. Vi kan mao. definere funksjoner, og integrere dem, uten å evaluere dem med konkrete verdier.</p>
+<h2 id="Eksempel-2">Eksempel 2<a class="anchor-link" href="#Eksempel-2">&#182;</a></h2><p>Vi ser på et eksempel til, denne gang, hvor prior er en av de diskrete fordelingene scipy har innebygd. Du kaster en $D_4$-terning helt til du får 4. Du teller antall kast, og legger det antallet non-stop i en skål. En av dem er gule, resten er sorte.</p>
+<p>Deretter holder du skålen opp, og trekker en non-stop. Denne er gul. Lag en tabell over sannsynligheten for å trekke gul non-stop ved mindre enn 10 terningkast.</p>
 
 </div>
 </div>
@@ -616,7 +616,440 @@ SVqcIS5JDTPEJalhhrgkNcwQl6SG/S9Y5MGT3kJG0AAAAABJRU5ErkJggg==
 <div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># Slå av advarsler.</span>
+<div class=" highlight hl-ipython3"><pre><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="k">import</span> <span class="n">geom</span>
+
+<span class="c"># Prior er en geometrisk fordeling med p=1/4 pga. D4-terning.</span>
+<span class="n">prior</span> <span class="o">=</span> <span class="n">geom</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">pmf</span>
+
+<span class="c"># For ordens skyld definerer vi likelihood som en funksjon, men vi kan også gjøre operasjonen direkte</span>
+<span class="c"># på Series-objektene, slik vi har gjort tidligere.</span>
+<span class="k">def</span> <span class="nf">likelihood</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="o">/</span><span class="n">n</span>
+
+<span class="n">df4</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="p">()</span>
+<span class="n">ns</span> <span class="o">=</span> <span class="n">Series</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span> <span class="c"># n-verdiene, altså antall terningkast.</span>
+<span class="n">df4</span><span class="p">[</span><span class="s">&#39;Prior&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ns</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">prior</span><span class="p">)</span> <span class="c"># Ta alle n-veriene, og kjør prior-funksjonen på disse.</span>
+<span class="n">df4</span><span class="p">[</span><span class="s">&#39;Likelihood&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ns</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">likelihood</span><span class="p">)</span> <span class="c"># Tilsvarende på likelihood. Alternativ: 1/ns gir samme resultat.</span>
+<span class="n">df4</span><span class="p">[</span><span class="s">&#39;PxL&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df4</span><span class="p">[</span><span class="s">&#39;Prior&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">df4</span><span class="p">[</span><span class="s">&#39;Likelihood&#39;</span><span class="p">]</span>
+<span class="n">df4</span><span class="p">[</span><span class="s">&#39;Posterior&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df4</span><span class="p">[</span><span class="s">&#39;PxL&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="n">df4</span><span class="p">[</span><span class="s">&#39;PxL&#39;</span><span class="p">])</span>
+
+<span class="n">df4</span><span class="p">[</span><span class="s">&#39;Posterior&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">df4</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[5]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Prior</th>
+      <th>Likelihood</th>
+      <th>PxL</th>
+      <th>Posterior</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>0.250000</td>
+      <td>1.000000</td>
+      <td>0.250000</td>
+      <td>0.548235</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.187500</td>
+      <td>0.500000</td>
+      <td>0.093750</td>
+      <td>0.205588</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.140625</td>
+      <td>0.333333</td>
+      <td>0.046875</td>
+      <td>0.102794</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.105469</td>
+      <td>0.250000</td>
+      <td>0.026367</td>
+      <td>0.057822</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0.079102</td>
+      <td>0.200000</td>
+      <td>0.015820</td>
+      <td>0.034693</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>0.059326</td>
+      <td>0.166667</td>
+      <td>0.009888</td>
+      <td>0.021683</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0.044495</td>
+      <td>0.142857</td>
+      <td>0.006356</td>
+      <td>0.013939</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>0.033371</td>
+      <td>0.125000</td>
+      <td>0.004171</td>
+      <td>0.009148</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>0.025028</td>
+      <td>0.111111</td>
+      <td>0.002781</td>
+      <td>0.006098</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Du legger tilbake, og i tillegg legger du til en ekstra, gul, non-stop, slik at det nå er en non-stop mer enn antall terningkast. Hvordan ser tabellen og grafen nå ut?</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="k">def</span> <span class="nf">likelihood2</span><span class="p">(</span><span class="n">n</span><span class="p">):</span> <span class="c"># Nå har vi to gule nonstop, og n+1 totalt.</span>
+    <span class="k">return</span> <span class="mi">2</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">df5</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="p">()</span>
+<span class="n">df5</span><span class="p">[</span><span class="s">&#39;Prior&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df4</span><span class="p">[</span><span class="s">&#39;Posterior&#39;</span><span class="p">]</span> <span class="c"># Gammel posterior, ny prior</span>
+<span class="n">df5</span><span class="p">[</span><span class="s">&#39;Likelihood&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ns</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">likelihood2</span><span class="p">)</span> <span class="c"># Utfør likelihood-funksjonen for alle n-verdiene i ns.</span>
+<span class="n">df5</span><span class="p">[</span><span class="s">&#39;PxL&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df5</span><span class="p">[</span><span class="s">&#39;Prior&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">df5</span><span class="p">[</span><span class="s">&#39;Likelihood&#39;</span><span class="p">]</span>
+<span class="n">df5</span><span class="p">[</span><span class="s">&#39;Posterior&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df5</span><span class="p">[</span><span class="s">&#39;PxL&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="n">df5</span><span class="p">[</span><span class="s">&#39;PxL&#39;</span><span class="p">])</span>
+<span class="n">df5</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">ns</span>
+
+<span class="n">df5</span><span class="p">[</span><span class="s">&#39;Posterior&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">df5</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[6]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Prior</th>
+      <th>Likelihood</th>
+      <th>PxL</th>
+      <th>Posterior</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>0.548235</td>
+      <td>1.000000</td>
+      <td>0.548235</td>
+      <td>0.698997</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.205588</td>
+      <td>0.666667</td>
+      <td>0.137059</td>
+      <td>0.174749</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.102794</td>
+      <td>0.500000</td>
+      <td>0.051397</td>
+      <td>0.065531</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.057822</td>
+      <td>0.400000</td>
+      <td>0.023129</td>
+      <td>0.029489</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0.034693</td>
+      <td>0.333333</td>
+      <td>0.011564</td>
+      <td>0.014744</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>0.021683</td>
+      <td>0.285714</td>
+      <td>0.006195</td>
+      <td>0.007899</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0.013939</td>
+      <td>0.250000</td>
+      <td>0.003485</td>
+      <td>0.004443</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>0.009148</td>
+      <td>0.222222</td>
+      <td>0.002033</td>
+      <td>0.002592</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>0.006098</td>
+      <td>0.200000</td>
+      <td>0.001220</td>
+      <td>0.001555</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+ddrbKmeAHOcAAAAASUVORK5CYII=
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Kontinuerlig-funksjon-og-symbolsk-integrasjon">Kontinuerlig funksjon og symbolsk integrasjon<a class="anchor-link" href="#Kontinuerlig-funksjon-og-symbolsk-integrasjon">&#182;</a></h2><p>Det hender vi får funksjoner med delt funksjonsforskrift. Med metodene vi har brukt tidligere, vil vi ikke få noen særlig hjelp i disse tilfellene. Ja, vi kan gjøre numerisk integrasjon ved å evaluere veldig mange punkter, men la oss heller se på en annen løsning.</p>
+<p>Anaconda blir levert med en pakke som heter "sympy". Denne pakken lar deg regne symbolsk med Python. Vi kan mao. definere funksjoner, og integrere dem, uten å evaluere dem med konkrete verdier.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># Slå av advarsler. Symbolsk integrasjon (se nederst) av funksjoner med delt funksjonsforskrift gir</span>
+<span class="c"># ikke alltid riktig resultat med sympy. Dette blir trolig utbedret i en fremtidig versjon.</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s">&#39;ignore&#39;</span><span class="p">)</span>
 
@@ -643,7 +1076,7 @@ SVqcIS5JDTPEJalhhrgkNcwQl6SG/S9Y5MGT3kJG0AAAAABJRU5ErkJggg==
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span class="n">x</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="s">&#39;x&#39;</span><span class="p">)</span>
@@ -800,7 +1233,7 @@ huAGgIQhuAEgYf4HZpht/k0Awz4AAAAASUVORK5CYII=
 
 </div>
 
-<div class="output_area"><div class="prompt output_prompt">Out[6]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[8]:</div>
 
 
 <div class="output_latex output_subarea output_execute_result">
@@ -815,7 +1248,7 @@ $$\begin{cases} 0 & \text{for}\: x \leq -2 \\0.25 x + 0.5 & \text{for}\: x \leq 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span class="n">likelihood</span> <span class="o">=</span> <span class="n">Piecewise</span><span class="p">(</span>
@@ -933,7 +1366,7 @@ ABAzBDcAxAzBDQAxQ3ADQMwQ3AAQMwQ3AMQMwQ0AMfP/pd/BLO1Xuq8AAAAASUVORK5CYII=
 
 </div>
 
-<div class="output_area"><div class="prompt output_prompt">Out[7]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[9]:</div>
 
 
 <div class="output_latex output_subarea output_execute_result">
@@ -948,7 +1381,7 @@ $$\begin{cases} 14 & \text{for}\: x \leq -1 \\2 & \text{for}\: x < 0 \\3 & \text
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span class="n">pxl</span> <span class="o">=</span> <span class="n">piecewise_fold</span><span class="p">(</span><span class="n">prior</span><span class="o">*</span><span class="n">likelihood</span><span class="p">)</span>
@@ -1112,7 +1545,7 @@ SJb5//zUfC6ubbXZAAAAAElFTkSuQmCC
 
 </div>
 
-<div class="output_area"><div class="prompt output_prompt">Out[8]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[10]:</div>
 
 
 <div class="output_latex output_subarea output_execute_result">
@@ -1138,7 +1571,7 @@ $$\begin{cases} \begin{cases} 0 & \text{for}\: x \leq -2 \\3.5 x + 7.0 & \text{f
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span class="kn">from</span> <span class="nn">sympy</span> <span class="k">import</span> <span class="n">oo</span><span class="p">,</span> <span class="n">integrate</span>
@@ -1322,7 +1755,7 @@ iTAKbhGRCPN/E9sQspEZLIIAAAAASUVORK5CYII=
 
 </div>
 
-<div class="output_area"><div class="prompt output_prompt">Out[9]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[11]:</div>
 
 
 <div class="output_latex output_subarea output_execute_result">
@@ -1331,19 +1764,6 @@ $$\begin{cases} - 0.222222222222222 \begin{cases} 0 & \text{for}\: x \leq -2 \\3
 
 </div>
 
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre> 
-</pre></div>
-
-</div>
 </div>
 </div>
 
