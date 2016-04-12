@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Manual for Pandas (Kredibilitetsintervall og hypotesetest.ipynb)</title>
+		<meta charset="utf-8">
+		
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+		<link rel="stylesheet" href="../style.css">
+		
+		<!-- Load mathjax -->
+		<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+		<!-- MathJax configuration -->
+		<script type="text/x-mathjax-config">
+			MathJax.Hub.Config({
+			tex2jax: {
+				inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+				displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+				processEscapes: true,
+				processEnvironments: true
+			},
+			// Center justify equations in code and markdown cells. Elsewhere
+			// we use CSS to left justify single line equations in code cells.
+			displayAlign: 'center',
+			"HTML-CSS": {
+				styles: {'.MathJax_Display': {"margin": 0}},
+				linebreaks: { automatic: true }
+			}
+			});
+		</script>
+		<!-- End of mathjax configuration -->
+	</head>
+
+	<body>
+	<div id="fb-root"></div>
+	<script>
+		(function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) return;
+			js = d.createElement(s); js.id = id;
+			js.src = "//connect.facebook.net/nb_NO/sdk.js#xfbml=1&version=v2.5&appId=1522191924744326";
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+	</script>
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-3 menu">
+				<h3>
+					MA-155 Manual for Pandas
+				</h3>
+
+				<hr>
+
+				<nav class="list-group">
+					<h4 class="list-group-item">Navigasjon</h4>
+					<a class="list-group-item" href="introduksjon-og-installasjon.html">Introduksjon og installasjon</a>
+<a class="list-group-item" href="bruk-av-jupyter.html">Bruk av Jupyter</a>
+<a class="list-group-item" href="python.html">Introduksjon til Python</a>
+<a class="list-group-item" href="frekvenstabell-og-diagram.html">Frekvenstabell og -diagram</a>
+<a class="list-group-item" href="kovarians-og-korrelasjon.html">Kovarians og korrelasjon</a>
+<a class="list-group-item" href="grupperte-data.html">Grupperte data</a>
+<a class="list-group-item" href="lineaer-regresjon.html">Lineær regresjon</a>
+<a class="list-group-item" href="mengdelaere.html">Mengdelære</a>
+<a class="list-group-item" href="sannsynlighet.html">Sannsynlighet</a>
+<a class="list-group-item" href="grunnleggende-bayes.html">Grunnleggende Bayes</a>
+<a class="list-group-item" href="diskrete-sannsynlighetsfordelinger.html">Diskrete sannsynlighetsfordelinger</a>
+<a class="list-group-item" href="kontinuerlige-sannsynlighetsfordelinger.html">Kontinuerlige sannsynlighetsfordelinger</a>
+<a class="list-group-item" href="stokastiske-variable.html">Stokastiske variable</a>
+<a class="list-group-item" href="statistisk-inferens-bayes.html">Statistisk inferens med Bayes teorem</a>
+<a class="list-group-item" href="statistisk-inferens-konjugert-prior.html">Statistisk inferens med konjugert prior</a>
+<a class="list-group-item active" href="kredibilitetsintervall-og-hypotesetest.html">Kredibilitetsintervall og hypotesetest</a>
+				</nav>
+
+				<hr>
+
+				<a href="../notebooks/Kredibilitetsintervall og hypotesetest.ipynb" class="btn btn-primary btn-block">
+					Last ned kapittel som notebook<br/>
+					<small>(Kredibilitetsintervall og hypotesetest.ipynb)</small>
+				</a>
+			</div>
+			<section class="col-md-9 content">
+				
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Kredibilitetsintervall">Kredibilitetsintervall<a class="anchor-link" href="#Kredibilitetsintervall">&#182;</a></h1><p>Alle fordelingene vi har brukt gir oss tilgang til en "interval"-metode. Denne finner det tosidige kredibilitetsintervallet med eneste parameter alfa. Du oppgir først parameterne til sannsynlighetsfordelingen (normalfordeling, student's T osv), som tidligere, og kaller deretter interval-metoden.</p>
+<h3 id="Normalfordelingen">Normalfordelingen<a class="anchor-link" href="#Normalfordelingen">&#182;</a></h3><p>Vi lager en normalfordeling med $\mu=0.5$ og $\sigma=5.4$, og finner det 89% tosidige kredibilitetsintervallet.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="k">import</span> <span class="n">norm</span>
+
+<span class="n">norm</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">5.4</span><span class="p">)</span><span class="o">.</span><span class="n">interval</span><span class="p">(</span><span class="mf">0.89</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[1]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(-8.1302429555832152, 9.1302429555832205)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Student's-T">Student's T<a class="anchor-link" href="#Student's-T">&#182;</a></h3><p>Merk at rekkefølgen på parameterne i Sipy.stats ikke er lik den som brukes i læreboka. Utover dette, fungerer utregning av tosidig intervall på samme måte som for normalfordelingen. Her bruker vi $\nu=10$, $\mu=22.6$ og $\sigma=3.5$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="k">import</span> <span class="n">t</span>
+
+<span class="n">t</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">22.6</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">)</span><span class="o">.</span><span class="n">interval</span><span class="p">(</span><span class="mf">0.998</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[2]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(8.0970482708368205, 37.102951729163181)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Eksponentialfordelingen">Eksponentialfordelingen<a class="anchor-link" href="#Eksponentialfordelingen">&#182;</a></h3><p>Over brukte vi interval-metoden. Denne gir som nevnt tosidig kredibilitetsintervall. Hvis vi vil ha et ensidig intervall, bruker vi invers, eller PPF (se kapittel om kontinuerlige sannsynlighetsfordelinger). Vi skal her finne venstre ensidige kredibilitetsintervall.</p>
+<p>Merk at også denne avviker fra lærebok og formelsamling ved at vi må oppgi $\mu$ og ikke $\lambda$. Dette gjør vi ved å ta $\frac{1}{\lambda}$. Så hvis vi har lambda = 2.34, kan vi gjøre følgende (95% kredibilitetsintervall):</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="k">import</span> <span class="n">expon</span>
+
+<span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">expon</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="mf">2.34</span><span class="p">)</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.95</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[3]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(0, 1.280227467330765)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Hypotesetest">Hypotesetest<a class="anchor-link" href="#Hypotesetest">&#182;</a></h1><p>Vi får oppgitt at $X \tilde {} \Phi_{(0.2, 4.7)}$. Den konservative hypotesen er at $X \ge 5$. Finn resultatet av testen med signifikans $\alpha=0.075$.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">X</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">4.7</span><span class="p">)</span>
+<span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.075</span>
+<span class="mi">5</span> <span class="o">&lt;</span> <span class="n">X</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">alpha</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[4]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>True</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># WIP!</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">floor</span>
+
+<span class="k">def</span> <span class="nf">diff_t</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span> <span class="n">mu1</span><span class="p">,</span> <span class="n">sigma1</span><span class="p">,</span> <span class="n">df2</span><span class="p">,</span> <span class="n">mu2</span><span class="p">,</span> <span class="n">sigma2</span><span class="p">):</span>
+    <span class="n">mu</span> <span class="o">=</span> <span class="n">mu2</span> <span class="o">-</span> <span class="n">mu1</span>
+    <span class="n">sigma</span> <span class="o">=</span> <span class="p">(</span><span class="n">sigma2</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">sigma1</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mf">0.5</span>
+    
+    <span class="n">df</span> <span class="o">=</span> <span class="n">floor</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">sigma1</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="p">(</span><span class="n">df1</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">sigma2</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="p">(</span><span class="n">df2</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span>
+        <span class="p">((</span><span class="n">sigma1</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="p">(</span><span class="n">df1</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">df1</span> <span class="o">+</span> <span class="p">(</span><span class="n">sigma2</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="p">(</span><span class="n">df2</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">df2</span><span class="p">)</span>
+    <span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">df</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span>
+
+<span class="n">diff_t</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mf">6.9</span><span class="p">,</span> <span class="mf">1.75</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="o">-</span><span class="mf">13.4</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[5]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(10, -20.3, 6.25)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Eksempel">Eksempel<a class="anchor-link" href="#Eksempel">&#182;</a></h3><p>Vi får oppgitt $X \tilde {} Exp_{(2.34)}$, og vår konservative hypotese er at $X \ge 1$. Avgjør hypotesetesten med signifikans $\alpha=0.05$.</p>
+<p>Her må vi som vanlig oppgi $\mu$ og ikke $\lambda$, så vi tar $\frac{1}{\lambda}$. Vi bruker X sin ppf-metode (som tidligere, ved ensidig intervall). Vi er ute etter venstre side. H_0-variabelen er en sammensatt sammenligning og sjekker først om 1 er større enn 0, og om det er mindre enn resultater fra PPF-funksjonen (øvre grense i intervallet). Resultatet blir en boolean, altså sant/usant, og vi bruker en if-test for å få et svar på tekstform. Hvis 1 er innenfor intervallet, får vi beskjed om at nullhypotesen stemmer.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">X</span> <span class="o">=</span> <span class="n">expon</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="mf">2.34</span><span class="p">)</span> <span class="c"># Vår fordeling / stokastiske variabel</span>
+<span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.05</span> <span class="c"># Signifikans</span>
+
+<span class="c"># Sjekk om 1 er innenfor intervallet</span>
+<span class="n">H_0</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="n">X</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">alpha</span><span class="p">)</span> <span class="c"># 1-alpha for å få venstre intervall</span>
+
+<span class="c"># Svar på tekstform</span>
+<span class="k">if</span> <span class="n">H_0</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s">&#39;Nullhypotesen stemmer, og skal ikke forkastes.&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s">&#39;Nullhypotesen forkastes.&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Nullhypotesen stemmer, og skal ikke forkastes.
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+
+				<hr>
+				<div class="fb-comments" data-numposts="5" data-width="600"></div>
+			</section>
+		</div>
+
+		<div class="row">
+			<div class="col-sm-12">
+					<hr>
+					<p class="text-center">
+						<small>Laget v&aring;ren 2016, som prosjektoppgave i MA-155 Statistikk ved UiA av <a href="http://olav.it/" target="_blank">Olav Andreas Lindekleiv</a></small>
+					</p>
+					<hr>
+			</div>
+		</div>
+	</div>
+	</body>
+</html>
