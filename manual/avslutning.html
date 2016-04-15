@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Manual for Pandas (Introduksjon og installasjon.ipynb)</title>
+		<title>Manual for Pandas (Avslutning.ipynb)</title>
 		<meta charset="utf-8">
 		
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -53,7 +53,7 @@
 
 				<nav class="list-group">
 					<h4 class="list-group-item">Navigasjon</h4>
-					<a class="list-group-item active" href="introduksjon-og-installasjon.html">Introduksjon og installasjon</a>
+					<a class="list-group-item" href="introduksjon-og-installasjon.html">Introduksjon og installasjon</a>
 <a class="list-group-item" href="bruk-av-jupyter.html">Bruk av Jupyter</a>
 <a class="list-group-item" href="python.html">Introduksjon til Python</a>
 <a class="list-group-item" href="frekvenstabell-og-diagram.html">Frekvenstabell og -diagram</a>
@@ -69,14 +69,14 @@
 <a class="list-group-item" href="statistisk-inferens-bayes.html">Statistisk inferens med Bayes teorem</a>
 <a class="list-group-item" href="statistisk-inferens-konjugert-prior.html">Statistisk inferens med konjugert prior</a>
 <a class="list-group-item" href="kredibilitetsintervall-og-hypotesetest.html">Kredibilitetsintervall og hypotesetest</a>
-<a class="list-group-item" href="avslutning.html">Avslutning</a>
+<a class="list-group-item active" href="avslutning.html">Avslutning</a>
 				</nav>
 
 				<hr>
 
-				<a href="../notebooks/Introduksjon og installasjon.ipynb" class="btn btn-primary btn-block">
+				<a href="../notebooks/Avslutning.ipynb" class="btn btn-primary btn-block">
 					Last ned kapittel som notebook<br/>
-					<small>(Introduksjon og installasjon.ipynb)</small>
+					<small>(Avslutning.ipynb)</small>
 				</a>
 			</div>
 			<section class="col-md-9 content">
@@ -86,15 +86,18 @@
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Introduksjon-og-installasjon">Introduksjon og installasjon<a class="anchor-link" href="#Introduksjon-og-installasjon">&#182;</a></h1><h2 id="Introduksjon">Introduksjon<a class="anchor-link" href="#Introduksjon">&#182;</a></h2><p>Denne manualen er en introduksjon til Pandas og iPython/Jupyter, beregnet for statistikkdelen av MA-155 ved Universitetet i Agder. Den tar for seg installasjon og oppsett av nødvendige verktøy, samt bruk av disse for å løse relevante oppgaver og problemer i faget.</p>
-<p>Programmeringsspråket vi bruker er Python. Det er mye brukt innenfor forskning og dataanalyse, og det er utviklet en rekke programpakker og verktøy innenfor ulike felt. For å gjøre det enklest mulig å komme igang, anbefaler jeg Anaconda. Dette er en samling som inneholder Python, samt Pandas, og en rekke andre pakker for databehandling og matematikk.</p>
-<p>Pandas er en pakke for databehandling og matematikk, mens Matplotlib brukes til å tegne grafer. All skriving og kjøring av kode gjøres med Jupyter. Jupyter lar oss kjøre kode, og se resultatet av koden rett i nettleseren i såkalte "notebooks". Disse kan så deles med, og redigeres av andre. Alle notebooks brukt for å lage denne guiden kan lastes ned, og kjøres på egen maskin. Dette er anbefalt, siden du da kan gjøre endringer, og gjenbruke kode til løsing av lignende oppgaver selv.</p>
-<p>Selv om hovedfokuset i guiden er på bruk av Jupyter og Pandas, vil vi også bruke pakker som Numpy og Scipy. Numpy danner store deler av grunnlaget for Pandas, men vi kan også bruke denne pakken direkte. Scipy har også en del grei funksjonalitet utover det vi får tilgang til gjennom Pandas.</p>
-<h2 id="Installasjon">Installasjon<a class="anchor-link" href="#Installasjon">&#182;</a></h2><p>Alt du trenger for å komme igang er å <a href="https://www.continuum.io/downloads">laste ned og installere Anaconda</a>. Du kan også bruke en eksisterende versjon av Python, hvis du har dette på maskinen allerede. Du må isåfall installere Pandas og Jupyter på egenhånd. Med Anaconda, går alt av seg selv.</p>
-<p>Anaconda er tilgjengelig til Windows, Mac OSX og Linux, og installeres som et hvilket som helst annet program på maskinen. Den kommer i en Python 2.7, og 3.x-versjon. Det har tidligere vært et problem med kompatibilitet for noen pakker med 3.x-versjonen. Dette er ikke lenger noe problem, og denne guiden er skrevet primært for Python, siden dette er mest fremtidsrettet.</p>
-<p><img src="../notebooks/assets/anaconda.png" alt="Anaconda"></p>
-<p>Når Anaconda er lastet ned, dobbeltklikker du på installasjonsfilen for å starte installasjonen. Du kan trykke "Next" og "I agree", uten å endre noen av valgene under veis. Pass på at "Add Anaconda to my PATH environment variable" er valgt på siste side i installasjonsveiviseren. Du kan gjerne også velge "Register Anaconda as my default Python 3.x", hvis ikke du har andre versjoner av Python på maskinen allerede.</p>
-<h2 id="Test-at-det-virker">Test at det virker<a class="anchor-link" href="#Test-at-det-virker">&#182;</a></h2><p>I neste kapittel får du informasjon om hvordan du starter Jupyter, og tester at alle pakkene er installert korrekt.</p>
+<h1 id="Avslutning">Avslutning<a class="anchor-link" href="#Avslutning">&#182;</a></h1><p>Jeg ønsket å lage denne guiden for å lære mer om disse verktøyene selv. Forhåpentligvis har jeg klart å videreformidle dette på en nokså forståelig måte. Som nevnt i de første kapitlene vil det være en fordel å ha noe programmeringserfaring fra før, ellers ville guiden vært alt for tidkrevende å lage som prosjektoppgave i statistikkfaget.</p>
+<p>Om du ikke har programmert så mye før, kan du likevel gjøre nytte av guiden. Alle kapitlene kan lastes ned og kjøres på egen maskin. Det betyr at du kan bruke koden i guiden, og bare endre tallverdier i eksempler, for å regne ut lignende oppgaver.</p>
+<h3 id="Hvis-du-vil-l&#230;re-mer">Hvis du vil l&#230;re mer<a class="anchor-link" href="#Hvis-du-vil-l&#230;re-mer">&#182;</a></h3><p>Skulle du være interessert i å lære mer, kan du finne mye mer dokumentasjon på nett. Her er noen steder som er verdt å ta en kikk på:</p>
+<ul>
+<li><a href="http://pandas.pydata.org/pandas-docs/stable/">Pandas-dokumentasjonen</a></li>
+<li><a href="https://docs.scipy.org/doc/numpy/reference/">Numpy-dokumentasjonen</a></li>
+<li><a href="https://docs.scipy.org/doc/scipy/reference/">Scipy-dokumentasjonen</a></li>
+<li><a href="http://docs.sympy.org/latest/index.html">Sympy-dokumentasjonen</a></li>
+<li><a href="https://stats.stackexchange.com/">Cross Validated</a> (StackExchange sitt statistikkforum)</li>
+</ul>
+<h3 id="Feil,-forbedringer-eller-sp&#248;rsm&#229;l?">Feil, forbedringer eller sp&#248;rsm&#229;l?<a class="anchor-link" href="#Feil,-forbedringer-eller-sp&#248;rsm&#229;l?">&#182;</a></h3><p>Lisensen for guiden er <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.no">CC-BY-NC-SA 4.0</a>, som betyr at du kan dele og bearbeide innholdet etter eget ønske, så lenge du oppgir korrekt kreditering, ikke benytter manualen til kommersielle formål. I tillegg må alle kopier/bearbeidelser distribueres under samme lisens.</p>
+<p>Kildefilene til guiden ligger tilgjengelig på <a href="https://github.com/oal/ma155-pandas-manual">GitHub</a>. Hvis du kjenner til Git, kand du klone guiden, utføre endringer, og sende dem inn i form av en "pull request".</p>
 
 </div>
 </div>

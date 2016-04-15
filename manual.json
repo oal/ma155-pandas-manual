@@ -15,6 +15,7 @@
 		{"name": "Stokastiske variable", "slug": "stokastiske-variable"},
 		{"name": "Statistisk inferens med Bayes teorem", "slug": "statistisk-inferens-bayes"},
 		{"name": "Statistisk inferens med konjugert prior", "slug": "statistisk-inferens-konjugert-prior"},
-		{"name": "Kredibilitetsintervall og hypotesetest", "slug": "kredibilitetsintervall-og-hypotesetest"}
+		{"name": "Kredibilitetsintervall og hypotesetest", "slug": "kredibilitetsintervall-og-hypotesetest"},
+		{"name": "Avslutning", "slug": "avslutning"}
 	]
 }
